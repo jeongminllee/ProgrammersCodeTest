@@ -4,3 +4,7 @@ if a % 2 == 0:
     
 else :
     print(f"{a} is odd")
+
+
+# n=int(input())
+# print(f"{n} is {'eovdedn'[n&1::2]}")
