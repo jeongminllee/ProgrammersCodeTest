@@ -1,8 +1,8 @@
 def solution(number, n, m):
-    return int(not(number % n or number % m))
+    return int(not(number % n and number % m))
 
 # def solution(num, n, m) :
-#   return int(not(num % n or num % m))
+#   return int(not(num % n and num % m))
 
 # def solution(number, n, m):
 #     return int(bool(number % n == 0) & bool(number % m == 0))
