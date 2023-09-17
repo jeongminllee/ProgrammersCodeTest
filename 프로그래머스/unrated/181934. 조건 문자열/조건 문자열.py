@@ -12,3 +12,7 @@ def solution(ineq, eq, n, m):
         else :
             return int(n>=m)
     return answer
+
+
+# def solution(ineq, eq, n, m):
+#   return int(eval(f"{n}{ineq}{eq.replace('!', '')}{m}"))
