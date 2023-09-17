@@ -5,3 +5,7 @@ def solution(a, b, flag):
     else :
         return a - b
     return answer
+
+
+# def solution(a, b, flag):
+#     return a + b if flag else a - b
