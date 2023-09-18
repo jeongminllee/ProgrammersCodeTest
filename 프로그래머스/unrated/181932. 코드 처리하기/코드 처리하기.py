@@ -15,3 +15,6 @@ def solution(code):
     if answer == '' :
         return 'EMPTY'
     return answer
+
+# def solution(code):
+#     return "".join(code.split("1"))[::2] or "EMPTY"
