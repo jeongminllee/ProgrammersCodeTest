@@ -5,3 +5,6 @@ def solution(n, k):
         answer.append(k*idx)
         idx += 1
     return answer
+
+# def solution(n, k):
+#     return [i for i in range(k,n+1,k)]
