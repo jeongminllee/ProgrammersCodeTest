@@ -1,9 +1,8 @@
+from math import prod
 def solution(num_list):
-    answer = 1
     for i in num_list :
         if len(num_list) > 10 :
-            answer = sum(num_list)
+            return sum(num_list)
         else :
-            answer *= i
+            return prod(num_list)
             
-    return answer
