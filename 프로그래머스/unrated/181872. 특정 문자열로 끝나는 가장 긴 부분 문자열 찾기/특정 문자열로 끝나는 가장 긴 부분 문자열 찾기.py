@@ -1,0 +1,1 @@
+solution = lambda myString, pat : myString[:myString.rindex(pat) + len(pat)]
