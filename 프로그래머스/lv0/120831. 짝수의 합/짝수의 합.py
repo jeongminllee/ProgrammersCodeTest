@@ -4,3 +4,6 @@ def solution(n):
         if i % 2 == 0 :
             answer += i
     return answer
+
+# def solution(n):
+#     return 2 * n // 2 * (n // 2 + 1) / 2
