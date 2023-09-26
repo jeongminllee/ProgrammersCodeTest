@@ -10,4 +10,11 @@ for i in range(M) :
     
 for i in range(N) :
     print(box[i], end = ' ')
-    
+
+
+# n, m = map(int, input().split())
+# s = [i for i in range(1, n+1)]
+# for _ in range(m):
+#     a, b = map(int, input().split())
+#     s[a-1], s[b-1] = s[b-1], s[a-1]
+# print(*s)
