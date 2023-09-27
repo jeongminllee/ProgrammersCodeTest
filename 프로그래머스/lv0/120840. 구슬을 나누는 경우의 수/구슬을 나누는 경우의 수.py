@@ -11,8 +11,6 @@ def solution(balls, share):
             break
     for sha in range(share, 0, -1) :
         m *= sha
-    # for div in range((balls - share), 0, -1) :
-    #     o *= div
         
         print(n)
         print(m)
