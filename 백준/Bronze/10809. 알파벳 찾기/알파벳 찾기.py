@@ -1,16 +1,21 @@
 S = input()
 
-al_l = []
-for i in range(97, 123):
-    al_l.append(chr(i))
+for i in range(97, 123) :
+    print(S.find(chr(i)), end = ' ')
 
-answer_l = [-1] * 26
+# S = input()
 
-for i in range(len(S)):
-    for j in range(len(al_l)):
-        if S[i] == al_l[j]:
-            if answer_l[j] == -1:
-                answer_l[j] = i
-                break
+# al_l = []
+# for i in range(97, 123):
+#     al_l.append(chr(i))
 
-print(*answer_l)
+# answer_l = [-1] * 26
+
+# for i in range(len(S)):
+#     for j in range(len(al_l)):
+#         if S[i] == al_l[j]:
+#             if answer_l[j] == -1:
+#                 answer_l[j] = i
+#                 break
+
+# print(*answer_l)
