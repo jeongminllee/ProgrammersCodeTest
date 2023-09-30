@@ -1,4 +1,5 @@
 def solution(my_string):
+    # reject = 'aeiou'
     reject = 'a', 'e', 'i', 'o', 'u'
     
     for i in my_string :
