@@ -15,3 +15,6 @@ def solution(dots):
             b2 = abs(a2[1] - a3[1])
     answer = b1 * b2
     return answer
+
+# def solution(dots):
+#     return (max(dots)[0] - min(dots)[0]) * (max(dots)[1] - min(dots)[1])
