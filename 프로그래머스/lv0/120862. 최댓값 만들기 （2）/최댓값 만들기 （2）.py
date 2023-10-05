@@ -7,3 +7,7 @@ def solution(numbers):
                 ans.append(numbers[i] * numbers[j])
                 answer = max(ans)
     return answer
+
+# def solution(numbers):
+#     numbers.sort()
+#     return max(numbers[0] * numbers[1], numbers[-1] * numbers[-2])
