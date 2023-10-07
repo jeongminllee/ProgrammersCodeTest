@@ -1,14 +1,11 @@
 def solution(babbling):
     answer = 0
+    anna = ["aya", "ye", "woo", "ma"]
     
-    for i in babbling :
-        cnt = 0
-        word = ''
-        for j in i :
-            word += j
-            if word in ["aya", "ye", "woo", "ma"] :
-                word = ''
-                cnt += 1
-        if len(word) == 0 and cnt > 0 :
+    for bb in babbling :
+        for a in anna :
+            bb = bb.replace(a, ' ')
+        bb = bb.replace(' ', '')
+        if len(bb) == 0 :
             answer += 1
     return answer
