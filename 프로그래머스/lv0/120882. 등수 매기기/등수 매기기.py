@@ -1,6 +1,6 @@
 def solution(score):
     answer = []
-    num = [sum(sc) / len(sc) for sc in score]
+    num = [sum(sc) for sc in score]
     sort_arr = sorted(num, reverse = True)
     
     for i in num :
