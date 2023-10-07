@@ -6,6 +6,4 @@ def solution(nums):
     for n in nums :
         if n not in num :
             num.append(n) 
-        if len(num) > choice :
-            return choice
-    return len(num)
+    return min(len(num), choice)
