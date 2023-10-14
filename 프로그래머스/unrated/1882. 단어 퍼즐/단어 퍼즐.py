@@ -1,5 +1,5 @@
 def solution(strs, t):
-    INF = 99999
+    INF = float("inf")
     dp = [INF] * len(t) + [0]
 
     for i in range(len(t), -1, -1) :
