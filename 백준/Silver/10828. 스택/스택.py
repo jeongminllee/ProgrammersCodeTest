@@ -1,24 +1,25 @@
 import sys
-input = sys.stdin.readline
 
-
-def sol():
+def Stack() :
     stack = []
-    N = int(input())
+    T = int(sys.stdin.readline())
+    for n in range(T) :
 
-    for n in range(N):
-        command = input().rstrip()
-        if command == "pop":
+        cmd = sys.stdin.readline().rstrip()
+        if cmd == 'pop' :
             print(stack.pop() if stack else -1)
-        elif command == "size":
+
+        elif cmd == 'size' :
             print(len(stack))
-        elif command == "empty":
+
+        elif cmd == 'empty' :
             print(+(not stack))
-        elif command == "top":
+
+        elif cmd == 'top' :
             print(stack[-1] if stack else -1)
-        else:
-            _, x = command.split()
+
+        else :
+            _, x = cmd.split()
             stack.append(x)
 
-
-sol()
+Stack()
