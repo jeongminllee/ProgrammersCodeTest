@@ -1,16 +1,22 @@
 import sys
-import heapq
 input = sys.stdin.readline
 
 N = int(input())
 
-arr = [list(map(int, input().split())) for _ in range(N)]
-arr.sort(key=lambda x:(x[0], x[1]))
+start, end = [], []
+for _ in range(N) :
+    a, b = map(int, input().split())
+    start.append(a)
+    end.append(b)
 
-heap = [arr[0][1]]
-for i in range(1, N) :
-    if heap[0] <= arr[i][0] :
-        heapq.heappop(heap)
-    heapq.heappush(heap, arr[i][1])
+start.sort()
+end.sort()
 
-print(len(heap))
+e = 0
+
+for s in start :
+    if end[e] <= s :
+        e += 1
+        N -= 1
+
+print(N)
