@@ -18,7 +18,7 @@ def dfs(ci, cj, cnt) :
 def bfs() :
     # q 등 필요 데이터 생성
     q = deque()
-    v = [[[] for _ in range(C)] for _ in range(R)]  # 리스트는 O(N)
+    # v = [[[] for _ in range(C)] for _ in range(R)]  # 리스트는 O(N)
     v = [[set() for _ in range(C)] for _ in range(R)]  # set는 O(1)
     ans = 1
     # q에 초기데이터(들) 삽입
