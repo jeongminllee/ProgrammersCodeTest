@@ -1,26 +1,28 @@
+import sys
 from collections import deque
 
 def solution(begin, target, words):
-    visited = []
-    q = deque([(begin, 0)])
+    answer = 0
+    q = deque()
+    q.append([begin, 0])    # [단어, 깊이]
+    v = [0] * (len(words))  # 방문 노드 여부 확인 리스트
 
     while q :
-        cur_word, cur_cnt = q.popleft()
+        print(q)
+        word, cnt = q.popleft()
+        if word == target :
+            answer = cnt
+            break
+        for i in range(len(words)):
+            temp_cnt = 0
+            if not v[i] :   # 만약 확인 안 한 단어라면
+                # 그 단어가 words 속 단어와 다를 때 한 자씩 비교해서 더하기
+                for j in range(len(word)) :
+                    if word[j] != words[i][j] :
+                        temp_cnt += 1
 
-        if cur_word == target :     # 목표 단어를 찾은 경우
-            return cur_cnt
-        # 현재 단어를 거쳐갈 수 있는 다음 단어들을 찾아 큐에 추가
-        for word in can_change(cur_word, set(words) - set(visited)) :
-            q.append((word, cur_cnt + 1))
-            visited.append(word)
+                if temp_cnt == 1 :
+                    q.append([words[i], cnt + 1])
+                    v[i] = 1
 
-    return 0
-
-def can_change(cur_word, words) :
-    c = []
-    for word in words :
-        diff = [True for x, y in zip(cur_word, word) if x != y]
-        if len(diff) == 1 :     # 한 개의 알파벳만 다를 경우
-            c.append(word)
-
-    return c
+    return answer
