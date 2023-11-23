@@ -1,22 +1,23 @@
 from collections import deque
 
-n, k = map(int, input().split())  # n: 수빈이가 있는 위치, k: 동생이 있는 위치
+n, k = map(int, input().split())
 q = deque()
-q.append(n) 
-visited = [-1 for _ in range(100001)]
-visited[n] = 0
+q.append(n)
+v = [-1 for _ in range(100001)]
+v[n] = 0
 
-while q:
+while q :
     s = q.popleft()
-    if s == k:
-        print(visited[s])
+    if s == k :
+        print(v[s])
         break
-    if 0 <= s-1 < 100001 and visited[s-1] == -1:
-        visited[s-1] = visited[s] + 1
-        q.append(s-1)
-    if 0 < s*2 < 100001 and visited[s*2] == -1:
-        visited[s*2] = visited[s]
-        q.appendleft(s*2)  # 2*s 가 다른 연산보다 더 높은 우선순위를 가지기 위함
-    if 0 <= s+1 < 100001 and visited[s+1] == -1:
-        visited[s+1] = visited[s] + 1
-        q.append(s+1)
+    if 0 <= s - 1 < 100001 and v[s - 1] == -1 :
+        v[s - 1] = v[s] + 1
+        q.append(s - 1)
+    if 0 < s * 2 < 100001 and v[s * 2] == -1 :
+        v[s * 2] = v[s]
+        q.append(s * 2)
+    if 0 <= s + 1 < 100001 and v[s + 1] == -1 :
+        v[s + 1] = v[s] + 1
+        q.append(s + 1)
+        
