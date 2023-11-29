@@ -3,7 +3,7 @@ arr = list(map(int, input().split()))
 brr = list(map(int, input().split()))
 cnt = 0
 
-tmp = [0] * (n + 1)
+tmp = [0] * n
 
 flag = (arr == brr)
 for i, j in zip(arr, brr):
