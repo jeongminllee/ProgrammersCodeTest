@@ -1,74 +1,63 @@
-import sys
+n = int(input())
+arr = list(map(int, input().split()))
+brr = list(map(int, input().split()))
+cnt = 0
 
-def merge(arr, p, q, r) :
-    global n, idx
-    tmp = []
+tmp = [0] * (n + 1)
+
+flag = (arr == brr)
+for i, j in zip(arr, brr):
+    if i == j:
+        cnt += 1
+
+
+def merge(arr, p, q, r):
+    global cnt, flag
     i = p
     j = q + 1
-    while True :
-        if i > q or j > r :
-            break
-        if arr[i] <= arr[j] :
-            tmp.append(arr[i])
+    t = 0
+
+    while i <= q and j <= r:
+        if arr[i] <= arr[j]:
+            tmp[t] = arr[i]
             i += 1
-        else :
-            tmp.append(arr[j])
+        else:
+            tmp[t] = arr[j]
             j += 1
-            
-    while True :
-        if i > q :
-            break
-        tmp.append(arr[i])
+        t += 1
+    while i <= q:
+        tmp[t] = arr[i]
+        t += 1
         i += 1
-        
-    while True :
-        if j > r :
-            break
-        tmp.append(arr[j])
+    while j <= r:
+        tmp[t] = arr[j]
+        t += 1
         j += 1
-        
-    a = p
-    b = 0
-    
-    while True :
-        if a > r :
-            break
-        arr[a] = tmp[b]
-        
-        if a <= idx and arr[a] != tmp[b] :
-            print(0)
-            sys.exit()
-            
-        if arr[a] == B[a] :
-            search = idx
-            for i in range(search, n) :
-                if arr[i] == B[i] :
-                    idx = i
-                if arr[i] != B[i] :
-                    break
-                elif i == n - 1 :
-                    print(1)
-                    sys.exit()
-                    
-        a += 1
-        b += 1
-    
-def merge_sort(arr, p, r) :
-    if p < r :
+    i = p
+    t = 0
+    while i <= r:
+        be = arr[i]
+        arr[i] = tmp[t]
+        if arr[i] == brr[i] and be != arr[i]:
+            cnt += 1
+        elif arr[i] != brr[i] and be == brr[i]:
+            cnt -= 1
+        if cnt == n :
+            flag = True
+        i += 1
+        t += 1
+
+
+def merge_sort(arr, p, r):
+    if p < r:
         q = (p + r) // 2
         merge_sort(arr, p, q)
         merge_sort(arr, q + 1, r)
         merge(arr, p, q, r)
-        
-n = int(input())
-A = list(map(int, input().split()))
-B = list(map(int, input().split()))
-idx = -1
 
-if A == B:
+
+merge_sort(arr, 0, n - 1)
+if flag:
     print(1)
-    sys.exit()
-    
-merge_sort(A, 0, n - 1)
-
-print(0)
+else:
+    print(0)
