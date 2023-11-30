@@ -1,8 +1,6 @@
 from sys import exit
 import sys
-sys.setrecursionlimit(10 ** 4)
-
-g = lambda: [*map(int, input().split())]
+sys.setrecursionlimit(10 ** 5)
 
 def is_same(x):
     if x in check:
@@ -39,8 +37,8 @@ def partition(A, p, r):
     return i + 1
 
 N = int(input())
-A = g()
-B = g()
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
 check = set()
 for i in range(N):
     if A[i] != B[i]:
