@@ -1,34 +1,34 @@
 def solution(n, k, cmd):
     answer = ['O' for _ in range(n)]
+    # 1. 삭제된 행의 인덱스를 저장하는 리스트
     deleted = []
+
+    # 2. 링크드 리스트에서 각 행 위 아래의 행의 인덱스를 저장하는 리스트
     up = [i-1 for i in range(n + 2)]
     down = [i+1 for i in range(n + 1)]
     
     for c in cmd:
-        if c[0] == 'U':
-            for _ in range(int(c[2:])):
-                if up[k] == -1: # 최상단일 경우
-                    break
-                k = up[k]
-        elif c[0] == 'D':
-            for _ in range(int(c[2:])):
-                if down[k] == n: # 최하단일 경우
-                    break
-                k = down[k]
-        elif c[0] == 'C':
+        if c.startswith('C') :
             deleted.append(k)
-            answer[k] = 'X'
-            if up[k] != -1:
-                down[up[k]] = down[k]
-            if down[k] != n:
-                up[down[k]] = up[k]
+            up[down[k]] = up[k]
+            down[up[k]] = down[k]
             k = down[k] if down[k] != n else up[k]
-        else: # 'Z'
+
+        elif c.startswith('Z') :
             z = deleted.pop()
-            answer[z] = 'O'
-            if up[z] != -1:
-                down[up[z]] = z
-            if down[z] != n:
-                up[down[z]] = z
-                
+            down[up[z]] = z
+            up[down[z]] = z
+
+        else :
+            action, num = c.split()
+            if action == 'U' :
+                for _ in range(int(num)) :
+                    k = up[k]
+
+            else :
+                for _ in range(int(num)) :
+                    k = down[k]
+
+    for i in deleted :
+        answer[i] = 'X'
     return ''.join(answer)
