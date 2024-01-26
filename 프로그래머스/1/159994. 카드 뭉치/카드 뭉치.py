@@ -14,7 +14,7 @@ def solution(cards1, cards2, goal):
             cards2.popleft()
             goal.popleft()
         else :
-            break
+            return 'No'
     
     # goal이 비었으면 'Yes', 아니라면 'No'
-    return 'Yes' if not goal else 'No'
+    return 'Yes'
