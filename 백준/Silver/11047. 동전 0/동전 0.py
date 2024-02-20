@@ -1,9 +1,9 @@
-N, K = map(int, input().split())
-lst = [int(input()) for _ in range(N)]
+n, k = map(int, input().split())
+coins = list(int(input()) for _ in range(n))
 cnt = 0
-while K != 0 :
-    coin, K = divmod(K, lst[-1])
-    lst.pop()
+while k != 0 :
+    coin, k = divmod(k, coins[-1])
+    coins.pop()
     cnt += coin
 
 print(cnt)
