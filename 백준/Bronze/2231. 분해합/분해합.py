@@ -1,13 +1,8 @@
-n = int(input())
-lst = list()
-for i in range(n) :
-    nums = 0
-    for j in str(i) :
-        nums += int(j)
-    if nums + i == n :
-        lst.append(i)
+def find_generator(n):
+    for i in range(max(0, n - 54), n):
+        if i + sum(map(int, str(i))) == n:
+            return i
+    return 0
 
-if len(lst) == 0 :
-    print(0)
-else :
-    print(min(lst))
+n = int(input())
+print(find_generator(n))
