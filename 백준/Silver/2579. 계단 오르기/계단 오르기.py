@@ -1,15 +1,14 @@
-T = int(input())
-arr = [0]
+n = int(input())
+stairs = [0] + [int(input()) for _ in range(n)]
 
-for _ in range(T) :
-    x = int(input())
-    arr.append(x)
-g = [0, 0]
-h = [0, arr[1]]
+dp = [0] * (n + 1)
+dp[1] = stairs[1]
+
+if n >= 2:
+    dp[2] = stairs[1] + stairs[2]
+
+for i in range(3, n + 1):
+    dp[i] = max(dp[i - 2] + stairs[i], dp[i - 3] + stairs[i - 1] + stairs[i])
 
 
-for i in range(2, T + 1) :
-    g.append(h[i-1] + arr[i])
-    h.append(max(g[i-2], h[i-2]) + arr[i])
-
-print(max(g[T], h[T]))
+print(dp[-1])
