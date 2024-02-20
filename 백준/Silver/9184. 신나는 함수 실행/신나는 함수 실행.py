@@ -21,4 +21,4 @@ while True :
     if a == -1 and b == -1 and c == -1 :
         break
 
-    print('w(%d, %d, %d) = %d'%(a, b, c, w(a, b, c)))
+    print(f"w({a}, {b}, {c}) = {w(a, b, c)}")
