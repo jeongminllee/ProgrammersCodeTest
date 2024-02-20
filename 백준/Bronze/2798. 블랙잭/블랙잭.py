@@ -1,11 +1,11 @@
-N, M = map(int, input().split())
-lst = list(map(int, input().split()))
+n, m = map(int, input().split())
+arr = list(map(int, input().split()))
+answer = 0
 
-ans = 0     # 변수를 생성할 때는 위치/초기값 고민 후 작성
-for i in range(N - 2) :
-    for j in range(i + 1, N - 1) :
-        for k in range(j + 1, N) :
-            if ans < lst[i] + lst[j] + lst[k] <= M :
-                ans = lst[i] + lst[j] + lst[k]
+for i in range(n - 2) :
+    for j in range(i + 1, n - 1) :
+        for k in range(j + 1, n) :
+            if answer < arr[i] + arr[j] + arr[k] <= m :
+                answer = arr[i] + arr[j] + arr[k]
 
-print(ans)
+print(answer)
