@@ -1,14 +1,11 @@
-import sys
-input = sys.stdin.readline
+n = int(input())
+arr = [[] for _ in range(201)]  # 제한 사항 : 1 <= age <= 200
 
-N = int(input())
-members = [[] for _ in range(201)]
-
-for _ in range(N):
+for _ in range(n) :
     age, name = input().split()
     age = int(age)
-    members[age].append((age, name))
+    arr[age].append((age, name))
 
-for i in range(201):
-    for member in members[i]:
-        print(member[0], member[1])
+for i in range(201) :
+    for a in arr[i] :
+        print(a[0], a[1])
