@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 N = int(input())
 members = [[] for _ in range(201)]
 
