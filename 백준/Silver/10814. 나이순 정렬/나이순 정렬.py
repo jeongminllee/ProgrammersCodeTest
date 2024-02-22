@@ -1,11 +1,11 @@
-n = int(input())
-arr = []
+N = int(input())
+members = [[] for _ in range(201)]
 
-for _ in range(n) :
+for _ in range(N):
     age, name = input().split()
-    arr.append((age, name))
+    age = int(age)
+    members[age].append((age, name))
 
-arr.sort(key=lambda x:int(x[0]))
-
-for i in range(n) :
-    print(arr[i][0], arr[i][1])
+for i in range(201):
+    for member in members[i]:
+        print(member[0], member[1])
