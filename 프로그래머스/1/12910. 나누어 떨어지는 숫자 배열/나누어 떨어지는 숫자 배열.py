@@ -4,6 +4,4 @@ def solution(arr, divisor):
         if i % divisor == 0 :
             answer.append(i)
             answer.sort()
-    if len(answer) == 0 :
-        answer.append(-1)
-    return answer
+    return answer if len(answer) != 0 else [-1]
