@@ -1,21 +1,19 @@
-def check(n) :
-    for i in range(n) :
-        if row[n] == row[i] or abs(row[n] - row[i]) == n - i :
-            return False
-    return True
+def dfs(n) :
+    global ans
+    if n == N :     
+        ans += 1
+        return
 
-def solve(n) :
-    global result
-    if n == N :
-        result += 1
-    else :
-        for i in range(N) :
-            row[n] = i
-            if check(n) :
-                solve(n + 1)
-                
+    for j in range(N) :
+        if v1[j] == v2[n + j] == v3[n - j] == 0 :   
+            v1[j] = v2[n + j] = v3[n - j] = 1
+            dfs(n + 1)
+            v1[j] = v2[n + j] = v3[n - j] = 0
+
 N = int(input())
-row = [0] * N
-result = 0
-solve(0)
-print(result)
+ans = 0
+v1 = [0] * N
+v2 = [0] * (2 * N)
+v3 = [0] * (2 * N)
+dfs(0)
+print(ans)
