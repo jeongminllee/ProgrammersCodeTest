@@ -1,28 +1,28 @@
-n = int(input())
-arr = list(map(int, input().split()))
-LIS = [arr[0]]
-
-def binarySearch(e):
+def binarySearch(e) :
     start = 0
     end = len(LIS) - 1
 
-    while start <= end:
+    while start <= end :
         mid = (start + end) // 2
 
-        if LIS[mid] == e:
+        if LIS[mid] == e :
             return mid
         elif LIS[mid] < e:
             start = mid + 1
-        else:
+        else :
             end = mid - 1
 
     return start
 
+N = int(input())
+arr = list(map(int, input().split()))
+LIS = [arr[0]]
 
-for i in range(n):
-    if arr[i] > LIS[-1]:
+for i in range(N) :
+    if arr[i] > LIS[-1] :
         LIS.append(arr[i])
-    else:
+
+    else :
         idx = binarySearch(arr[i])
         LIS[idx] = arr[i]
 
