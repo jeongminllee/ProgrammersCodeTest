@@ -1,5 +1,3 @@
-# n % 3 으로 3진법을 표현함. 
-# str 으로 받은 다음 reverse 로 하고 3 ** (저거)를 하면 되지 않을까?
 def solution(n):
     answer = 0
     rev_num = []
