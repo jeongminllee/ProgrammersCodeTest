@@ -1,5 +1,3 @@
-import sys
-
 from collections import deque
 
 def bfs() :
@@ -33,9 +31,6 @@ def bfs() :
         return v[ch][ci][cj] - 1
     else :
         return -1
-
-
-
 
 M, N, H = map(int, input().split())
 arr = [[list(map(int, input().split())) for _ in range(N)] for _ in range(H)]
