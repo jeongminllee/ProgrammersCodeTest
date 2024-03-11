@@ -1,20 +1,20 @@
 import heapq
 
-INF = float("inf")
+INF = float('inf')
 
-n, e = map(int, input().split())
+v, e = map(int, input().split())
 k = int(input())
-graph = [[] for _ in range(n + 1)]
-dst = [INF] * (n + 1)
+graph = [[] for _ in range(v + 1)]
+dst = [INF] * (v + 1)
 
 for _ in range(e) :
     u, v, w = map(int, input().split())
     graph[u].append([v, w])
 
-def dijkstra(start) :
+def dijkstra(s) :
     q = []
-    heapq.heappush(q, (0, start))
-    dst[start] = 0
+    heapq.heappush(q, (0, s))
+    dst[s] = 0
 
     while q :
         dist, node = heapq.heappop(q)
@@ -30,7 +30,7 @@ def dijkstra(start) :
 dijkstra(k)
 
 for i in range(1, len(dst)) :
-    if dst[i] == float("inf") :
+    if dst[i] == float('inf') :
         print("INF")
     else :
         print(dst[i])
