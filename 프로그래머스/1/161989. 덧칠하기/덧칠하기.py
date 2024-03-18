@@ -1,14 +1,16 @@
-# 칠하는 섹션을 max, min 의 차?
-# while 문 쓰면 한방에 해결이 되는구나 => 왜 틀렸지?
-
-# 횟수로 리턴
 def solution(n, m, section):
+    # 페인트칠 해야 할 횟수
     answer = 0
-    cnt = 0
-    while cnt < len(section) :
-        s = section[cnt]
+    # 시작 순서 설정
+    i = 0
+    while i < len(section) :
+        # 시작 구역 설정
+        s = section[i]
+        # 롤러로 칠할 수 있는 구역 설정
         e = s + m - 1
-        while cnt < len(section) and section[cnt] <= e :
-            cnt += 1
+        # 현재 구역부터 롤러로 칠할 수 있는 범위 내의 다음 구역들을 확인
+        while i < len(section) and section[i] <= e :
+            i += 1
+        # 페인트칠 횟수 증가
         answer += 1
     return answer
