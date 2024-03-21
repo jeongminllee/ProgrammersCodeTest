@@ -1,42 +1,15 @@
-from itertools import permutations
+def solution(k, dungeons):
+    visited = [0] * len(dungeons)   # 던전 방문 여부를 체크할 리스트
+    answer = [0]    # 탐험할 수 있는 최대 던전 수를 저장할 리스트
 
-def solution(k, dungeons) :
-    mx = 0
-    for i in permutations(dungeons) :
-        fatigue = k
-        cnt = 0
-        for dungeon in i :
-            if fatigue >= dungeon[0] :
-                fatigue -= dungeon[1]
-                cnt += 1
-
-        mx = max(cnt, mx)
-    return mx
-
-# def solution(k, dungeons) :
-#     mx = 0
-#     n = len(dungeons)
-#     v = [0] * n
-#     order = [0] * n
-
-#     def dfs(d) :
-#         nonlocal mx
-#         if d == n :
-#             fatigue = k
-#             cnt = 0
-#             for i in order :
-#                 if fatigue >= dungeons[i][0] :
-#                     fatigue -= dungeons[i][1]
-#                     cnt += 1
-#             mx = max(cnt, mx)
-
-#         else :
-#             for i in range(n) :
-#                 if not v[i] :
-#                     v[i] = 1
-#                     order[d] = i
-#                     dfs(d + 1)
-#                     v[i] = 0
-
-#     dfs(0)
-#     return mx
+    def dfs(k, cnt) :
+        for i in range(len(dungeons)) :
+            # 아직 방문하지 않았고, 현재 피로도로 탐험 가능한 던전인 경우
+            if not visited[i] and k >= dungeons[i][0] :
+                visited[i] = 1  # 던전 방문 처리
+                dfs(k - dungeons[i][1], cnt + 1)    # 탐험 후 피로도 감소
+                visited[i] = 0  # 던전 방문 처리 해제
+        answer[0] = max(answer[0], cnt) # 최대 던전 탐험 횟수 갱신
+        
+    dfs(k, 0)   # 재귀 함수 시작
+    return answer[0]
