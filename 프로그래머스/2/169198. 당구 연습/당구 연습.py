@@ -49,3 +49,34 @@ def solution(m, n, startX, startY, balls):
             
 #         answer.append(k)
 #     return answer
+# ------------------------------------------------------
+# in_line = (
+#     lambda x1, y1, x2, y2: x1 == x2 and y1 < y2,
+#     lambda x1, y1, x2, y2: y1 == y2 and x1 < x2,
+#     lambda x1, y1, x2, y2: x1 == x2 and y1 > y2,
+#     lambda x1, y1, x2, y2: y1 == y2 and x1 > x2
+# )
+
+# flip = (
+#     lambda x, y, m, n: (x, (n << 1) - y),
+#     lambda x, y, m, n: ((m << 1) - x, y),
+#     lambda x, y, m, n: (x, -y),
+#     lambda x, y, m, n: (-x, y)
+# )
+
+
+# def getDistance(x1, y1, x2, y2):
+#     return (x1 - x2) ** 2 + (y1 - y2) ** 2
+
+
+# def solution(m, n, startX, startY, balls):
+#     answer = []
+
+#     for ball in balls:
+#         distances = (
+#             getDistance(startX, startY, *flip[i](ball[0], ball[1], m, n))
+#             for i in range(4)
+#             if not in_line[i](startX, startY, ball[0], ball[1])
+#         )
+#         answer.append(min(distances))
+#     return answer
