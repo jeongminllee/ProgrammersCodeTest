@@ -1,20 +1,20 @@
 def solution(storey) :
-    ans = 0
-    while storey != 0 :
-        cur = storey % 10
-        next_ = (storey // 10) % 10
+    ans = 0     # 조작 횟수를 저장할 변수 초기화
+    while storey != 0 : # 주어진 숫자(층수)가 0이 아닐 때까지 반복
+        cur = storey % 10   # 현재 자리수(마지막 자리)
+        next_ = (storey // 10) % 10 # 다음 자리수(현재 자리수의 바로 앞자리)
 
-        if cur > 5 :
-            ans += 10 - cur
-            storey += 10
+        if cur > 5 :    # 현재 자리수가 5보다 클 경우
+            ans += 10 - cur # 10에서 현재 자리수를 뺀 값을 조작 횟수에 추가
+            storey += 10    # 현재 자루시루르 0으로 만들고 다음 자리수에 1을 더함
 
-        elif cur < 5 :
-            ans += cur
-            
+        elif cur < 5 :  # 현재 자리수가 5보다 작을 경우
+            ans += cur  # 현재 자리수를 조작 횟수에 그대로 추가
+
         else :  # cur = 5
-            if next_ > 4 :
-                storey += 10
-            ans += cur
+            if next_ > 4 :  # 다음 자리수가 4보다 클 경우
+                storey += 10    # 다음 자리수를 증가시키기 위해 현재 자리수를 0으로 만듦
+            ans += cur  # 현재 자리수(5)를 조작 횟수에 추가
 
-        storey //= 10
+        storey //= 10   # 다음 반복을 위해 숫자를 한 자리 줄임
     return ans
