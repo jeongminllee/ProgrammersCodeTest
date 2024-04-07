@@ -10,6 +10,8 @@ def cal(tlst) :
 
 def dfs(n, tlst) :
     global ans
+    if len(tlst)+(cnt-n)<M :    # 남은 가게 모두 더해도 M개가 안되는 경우 : 가지치기
+        return
     if n == cnt :               # 종료 조건 : 모든 치킨집의 폐업여부 결정
         if len(tlst) == M :     # M개 유지 결정시 최소값 갱신
             ans = min(ans, cal(tlst))
