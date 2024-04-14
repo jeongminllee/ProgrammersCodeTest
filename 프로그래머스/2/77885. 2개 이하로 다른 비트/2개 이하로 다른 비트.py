@@ -18,13 +18,23 @@
 # def solution(numbers):
 #     return [num + ((num ^ (num + 1)) >> 2) + 1 for num in numbers]
 
-def solution(numbers):
+# def solution(numbers):
+#     answer = []
+#     for n in numbers :
+#         num = n
+#         cnt = 0
+#         while n % 2 == 1 :
+#             cnt += 1
+#             n //= 2
+#         answer.append(num + 2**(cnt-1) if cnt != 0 else num+1)
+#     return answer
+
+def solution(numbers) :
     answer = []
-    for n in numbers :
-        num = n
-        cnt = 0
-        while n % 2 == 1 :
-            cnt += 1
-            n //= 2
-        answer.append(num + 2**(cnt-1) if cnt != 0 else num+1)
+    for num in numbers :
+        if num % 2 == 0 :
+            answer.append(num + 1)
+        else :
+            zero_bit = ((num ^ (num + 1)) >> 2) + 1
+            answer.append(num + zero_bit)
     return answer
