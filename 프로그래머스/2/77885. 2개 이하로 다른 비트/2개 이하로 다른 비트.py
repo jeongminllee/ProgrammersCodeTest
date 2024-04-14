@@ -14,5 +14,17 @@
 
 # 만약 x의 비트를 2개 바꿀 경우, 일단 하나의 0은 1로 바꿔야 하는데, 다른 하나는 그보다 좀 더 낮으면서 제일 높은 자리의 1을 0으로 바꾸는 것이 더 이상적.
 # 왜냐하면, 비트는 윗자리로 갈수록 그 비트가 의미하는 값이 항상 커지기 때문에. x가 홀수인 경우가 바로 이 경우
+
+# def solution(numbers):
+#     return [num + ((num ^ (num + 1)) >> 2) + 1 for num in numbers]
+
 def solution(numbers):
-    return [num + ((num ^ (num + 1)) >> 2) + 1 for num in numbers]
+    answer = []
+    for n in numbers :
+        num = n
+        cnt = 0
+        while n % 2 == 1 :
+            cnt += 1
+            n //= 2
+        answer.append(num + 2**(cnt-1) if cnt != 0 else num+1)
+    return answer
