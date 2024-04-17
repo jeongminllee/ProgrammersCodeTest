@@ -30,9 +30,9 @@ def bfs(si, sj, num, w, move, board, diagonal) :
                 q.append((ni, nj, int(board[ni][nj]), curr[3] + 3))
 
 def check(r, c):
-    if r < 0 or r >= 4 or c < 0 or c >= 3:
-        return False
-    return True
+    if 0 <= r < 4 and 0 <= c < 3 :
+        return True
+    return False
 
 def getMinTime(idx, left, right, n, dp, INF, number, w) :
     if idx == n :
