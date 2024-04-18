@@ -1,30 +1,32 @@
 words = []
 
-while True:
+while True :
     word = input().rstrip()
-    if word == '.':
+    if word == '.' :
         break
     words.append(word)
 
 for word in words :
     stack = []
     for i in word :
-        if i == '(' :
-            stack.append('(')
-        elif i == '[' :
-            stack.append('[')
-        elif i == ')' :
-            if stack and stack[-1] == '(':
+        if i == "(" :
+            stack.append(i)
+        elif i == "[" :
+            stack.append(i)
+        elif i == ")" :
+            if stack and stack[-1] == "(" :
                 stack.pop()
             else :
                 print("no")
                 break
-        elif i == ']' :
-            if stack and stack[-1] == '[' :
+
+        elif i == "]" :
+            if stack and stack[-1] == "[" :
                 stack.pop()
             else :
                 print("no")
                 break
+
     else :
         if not stack :
             print("yes")
