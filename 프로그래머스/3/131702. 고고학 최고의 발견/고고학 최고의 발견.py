@@ -1,38 +1,36 @@
-import copy
-
-dx = [0, -1, 1, 0, 0]
-dy = [0, 0, 0, 1, -1]
-
-def rotate(x, y, lst, rt):
-    length = len(lst)
-    for k in range(5):
-        ax, ay = x + dx[k], y + dy[k]
-        if 0 <= ax < length and 0 <= ay < length:
-            lst[ay][ax] = (lst[ay][ax] + rt) % 4
-
 def solution(clockHands):
     answer = float('inf')
-    length = len(clockHands)
 
-    for i in range(4 ** length):
-        tmp = 0
-        tmp_clock = copy.deepcopy(clockHands)
-        for j in range(length):
-            rt = i % 4 ** (j + 1) // 4 ** j
-            if rt == 0:
-                continue
+    # 회전을 구현한 함수
+    def plus(r, c, num):
+        for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1), (0, 0)]:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < n and 0 <= nc < n:
+                newclockHands[nr][nc] = (newclockHands[nr][nc] + num) % 4
+        return
 
-            rotate(j, 0, tmp_clock, rt)
-            tmp += rt
+    n = len(clockHands)
+    for i in range(1 << (2 * n)):
+        newclockHands = [clockHands[i][:] for i in range(n)]
+        cnt = 0
+        for c in range(n):
+            a = '1' if i & (1 << 2 * c) else '0'
+            b = '1' if i & (1 << 2 * c + 1) else '0'
+            plus(0, c, int(b + a, base=2))
+            cnt += int(b + a, base=2)
 
-        for y in range(1, length):
-            for x in range(length):
-                if tmp_clock[y - 1][x] == 0:
-                    continue
-                rt = 4 - tmp_clock[y - 1][x]
-                rotate(x, y, tmp_clock, rt)
-                tmp += rt
-        if sum(tmp_clock[-1]) == 0:
-            answer = min(answer, tmp)
+        for line in range(1, n):
+            if cnt >= answer:
+                break
+
+            for c in range(n):
+                num = newclockHands[line - 1][c]
+                if num:
+                    plus(line, c, 4 - num)
+                    cnt += 4 - num
+
+        if newclockHands[-1] == ([0] * n):
+            if cnt < answer:
+                answer = cnt
 
     return answer
