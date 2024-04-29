@@ -7,9 +7,9 @@ N, L, R = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(N)]
 
 ans = 0
-q = deque()
 while ans <= 2000 :
     # [1] 전체를 순회하면서, 미방문 => 연합처리
+    q = deque()
     v = [[0] * N for _ in range(N)]
     flag = 0
     for i in range(N) :
