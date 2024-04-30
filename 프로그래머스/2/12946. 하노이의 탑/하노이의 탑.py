@@ -6,8 +6,8 @@ def solution(n):
             answer.append([from_, to_])
         else :
             hanoi(n-1, from_, via_, to_)
-            hanoi(1, from_, to_, via_)
-            # answer.append([from_, to_])
+            # hanoi(1, from_, to_, via_)
+            answer.append([from_, to_])
             hanoi(n-1, via_, to_, from_)
     hanoi(n, 1, 3, 2)
     return answer
