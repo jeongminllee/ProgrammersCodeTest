@@ -10,6 +10,5 @@ def solution(n):
             answer.append([from_, to_])
             hanoi(n-1, via_, to_, from_)
     hanoi(n, 1, 3, 2)
-    return answer
 
     return answer
