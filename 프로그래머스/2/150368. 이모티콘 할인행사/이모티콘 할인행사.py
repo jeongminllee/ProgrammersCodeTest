@@ -40,5 +40,7 @@ def solution(users, emoticons):
         # 리스트 answer에 이모티콘 플러스 가입자 수와 이모티콘 판매 가격의 합을 append로 넣어준다.
         # 첫 루프라면 answer에 1개의 원소만 들어있기 때문에, sort의 의미가 없지만, 2번째 부터는 큰 값이 앞으로 오게 된다.
         answer.append([local_subscriber, local_sell])
-        
-    return max(answer)
+        answer.sort(reverse=True)
+        answer = [answer[0]]
+    return answer[0]
+    # return max(answer)
