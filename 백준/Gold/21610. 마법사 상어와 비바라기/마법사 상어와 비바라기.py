@@ -26,7 +26,7 @@ for _ in range(M) : # M번 입력 받아서 반복 처리
     for i in range(N) :
         for j in range(N) :
             # if arr[i][j] >= 2 and (i,j) not in clst2 :  # 500ms
-            if arr[i][j] >= 2 and v[i][j] == 0 :  # 500ms
+            if arr[i][j] >= 2 and v[i][j] == 0 :  # 180ms
                 arr[i][j] -= 2
                 clst1.append((i, j))
 
