@@ -14,23 +14,32 @@ def solution(temperature, t1, t2, a, b, onboard):
         flag = -1   # 최적의 온도보다 외부 온도가 높다면
 
     for i in range(1, len(onboard)):
-        for j in range(51):
+        start = end = 0
+
+        if onboard[i] :
+            start = t1
+            end = t2
+        else :
+            start = min(t1, temperature)
+            end = max(t2, temperature)
+
+        for j in range(start, end+1):
             ans = [cost]
             if (onboard[i] == 1 and t1 <= j <= t2) or onboard[i] == 0:
                 # 1. 에어컨을 키지 않고 실외온도와 달라서 실내온도가 -flag 되는 경우
                 if 0 <= j + flag <= 50:
-                    ans.append(dp[i - 1][j + flag])
+                    ans.append(dp[i - 1][j + flag]) # 에어컨 off
                 # 2. 에어컨을 키지 않고 현재온도 j 가 실외온도랑 같아서 변하지 않는 경우
                 if j == temperature:
-                    ans.append(dp[i - 1][j])
+                    ans.append(dp[i - 1][j])        # 에어컨 off
                 # 3. 에어컨을 키고 현재온도가 변하는 경우
                 if 0 <= j - flag <= 50:
-                    ans.append(dp[i - 1][j - flag] + a)
+                    ans.append(dp[i - 1][j - flag] + a) # 에어컨 on
                 # 4. 에어컨을 키고 현재온도가 희망온도라서 온도가 변하지 않는경우
                 if t1 <= j <= t2:
-                    ans.append(dp[i - 1][j] + b)
+                    ans.append(dp[i - 1][j] + b)        # 에어컨 on
 
-                dp[i][j] = min(ans)
+                dp[i][j] = min(ans)         # 최소 소비 전력 구하기
 
-    answer = min(dp[len(onboard) - 1])
+    answer = min(dp[len(onboard) - 1])      # return
     return answer
