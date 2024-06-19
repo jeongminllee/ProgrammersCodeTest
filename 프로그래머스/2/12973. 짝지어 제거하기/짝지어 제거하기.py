@@ -1,9 +1,12 @@
-def solution(s):
+def solution(s) :
     stack = []
-    for i in s :
-        if stack and i == stack[-1] :
+    for c in s :
+        if stack and stack[-1] == c :
             stack.pop()
         else :
-            stack.append(i)
+            stack.append(c)
 
-    return int(not stack)
+    if not stack :
+        return 1
+    else :
+        return 0
