@@ -6,7 +6,4 @@ def solution(s) :
         else :
             stack.append(c)
 
-    if not stack :
-        return 1
-    else :
-        return 0
+    return int(not stack)
