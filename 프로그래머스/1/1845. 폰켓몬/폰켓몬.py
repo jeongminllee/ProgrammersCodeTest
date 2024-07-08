@@ -1,4 +1,4 @@
 def solution(nums):
-    n = len(nums)
-    nums = set(nums)
-    return (min(n//2, len(nums)))
+    n1 = len(nums) // 2
+    n2 = len(set(nums))
+    return min(n1, n2)
