@@ -17,7 +17,7 @@ def solution(s):
                 s = s[i+1:]
                 break
                 
-        else :
+        else :  # x_cnt와 other_cnt가 같아지지 않은 채로 문자열 끝에 도달한 경우
             answer += 1
             break
             
