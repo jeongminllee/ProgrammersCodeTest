@@ -1,34 +1,32 @@
 import sys
-sys.setrecursionlimit(10**4)
+input = sys.stdin.readline
+sys.setrecursionlimit(20000)
 
-def postorder(tree, s, e) :
-    if s > e :
-        return []
-
-    root = tree[s]
-
-    left = s + 1
-    right = e
-    while left <= right :
-        mid = (left + right) // 2
-        if tree[mid] > root :
-            right = mid - 1
-        else :
-            left = mid + 1
-
-    left_tree = postorder(tree, s + 1, right)
-
-    right_tree = postorder(tree, right + 1, e)
-
-    return left_tree + right_tree + [root]
-
-tree = []
-while True :
-    try :
-        a = int(input())
-        tree.append(a)
-    except :
+preorder = []
+while True:
+    try:
+        preorder.append(int(input()))          
+    except:
         break
 
-for node in postorder(tree, 0, len(tree) - 1) :
-    print(node)
+def postorder(start, end):
+    if start >= end-1:
+        print(preorder[start])
+        return
+    
+    if preorder[start] > preorder[end-1] or preorder[start] < preorder[start+1]:
+        postorder(start+1, end)
+        print(preorder[start])
+        return
+    
+    mid = 0
+    for i in range(start+1, end):
+        if preorder[start] < preorder[i]:
+            mid = i
+            break
+
+    postorder(start+1, mid)
+    postorder(mid, end)
+    print(preorder[start])
+    
+postorder(0, len(preorder))
