@@ -13,7 +13,6 @@ def bfs(s, e, maps) :
             if maps[i][j] == s:
                 q.append((i, j, 0))
                 visited[i][j] = 1
-                break
 
     while q:
         y, x, cost = q.popleft()
