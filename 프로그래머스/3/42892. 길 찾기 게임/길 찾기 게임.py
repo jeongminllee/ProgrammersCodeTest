@@ -1,3 +1,6 @@
+import sys
+sys.setrecursionlimit(10**6)
+
 class Node :
     def __init__(self, info, num, left=None, right=None):
         self.info = info
@@ -41,6 +44,21 @@ def BST(nodeinfo) :
     return root
 
 def pre_order(root, answer) :
+    if root is None :
+        return
+    answer[0].append(root.num)
+    pre_order(root.left, answer)
+    pre_order(root.right, answer)
+    
+def post_order(root, answer) :
+    if root is None :
+        return
+    post_order(root.left, answer)
+    post_order(root.right, answer)
+    answer[1].append(root.num)
+    
+'''    
+def pre_order(root, answer) :
     stack = [root]
     while stack :
         node = stack.pop()
@@ -62,6 +80,7 @@ def post_order(root, answer) :
             stack.append((node, True))
             stack.append((node.right, False))
             stack.append((node.left, False))
+'''
 
 def solution(nodeinfo):
     answer = [[],[]]
