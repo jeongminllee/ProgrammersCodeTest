@@ -1,21 +1,20 @@
 def dfs(c) :
-    global cnt
-    cnt += 1
-    v[c] = 1
+    v.add(c)
 
-    for n in adj[c] :
-        if not v[n] :
+    for n in graph[c] : 
+        if n not in v :
             dfs(n)
 
-N = int(input())    # 컴퓨터의 수
-pairs = int(input())# 컴퓨터 쌍의 수
-adj = [[] for _ in range(N + 1)]
-for _ in range(pairs) :
-    s, e = map(int, input().split())
-    adj[s].append(e)
-    adj[e].append(s)
+com = int(input())
+network = int(input())
 
-cnt = 0
-v = [0] * (N + 1)
+graph = [[] for _ in range(com + 1)]
+v = set()
+
+for _ in range(network) :
+    s, e = map(int, input().split())
+    graph[s].append(e)
+    graph[e].append(s)
+
 dfs(1)
-print(cnt - 1)
+print(len(v) - 1)
