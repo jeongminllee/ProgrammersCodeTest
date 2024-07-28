@@ -15,4 +15,5 @@ for _ in range(Q) :
     elif query[0] == 3 :
         p += query[1]
 
-print(*(lst[p%N:] + lst[:p%N]))
+for i in range(N) :
+    print(lst[(i+p)%N], end=' ')
