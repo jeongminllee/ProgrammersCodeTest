@@ -10,6 +10,7 @@ if n % 2 == 0 :
     a = X
     b = n - X + 1
 
+# 홀수일 경우
 else :
     a = n - X + 1
     b = X
