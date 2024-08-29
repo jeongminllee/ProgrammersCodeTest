@@ -4,37 +4,17 @@ def slope(x1, y1, x2, y2) :
 N = int(input())
 lst = list(map(int, input().split()))
 
-res = 0
-for i1, y1 in enumerate(lst) :
-    x1 = i1 + 1
+res = [0] * N
 
-    cur_slope_right = None
-    visible_right = 0
-    for i2 in range(i1 + 1, N+1) :
-        if i2 == N :
-            break
-        x2 = i2 + 1
-        y2 = lst[i2]
-        slope_right = slope(x1, y1, x2, y2)
+for i in range(N-1) :
+    max_slope = -float('inf')
+    for j in range(i+1, N) :
+        slope_ = slope(i, lst[i], j, lst[j])
 
-        if cur_slope_right is None or cur_slope_right < slope_right :
-            cur_slope_right = slope_right
-            visible_right += 1
+        if slope_ <= max_slope :
+            continue
+        max_slope = max(max_slope, slope_)
+        res[i] += 1
+        res[j] += 1
 
-    cur_slope_left = None
-    visible_left = 0
-    for i3 in range(i1-1, -1, -1) :
-        if i3 == -1 :
-            break
-        x2 = i3 + 1
-        y2 = lst[i3]
-        slope_left = slope(x1, y1, x2, y2)
-
-        if cur_slope_left is None or cur_slope_left > slope_left :
-            cur_slope_left = slope_left
-            visible_left += 1
-
-    if (visible_left + visible_right) > res :
-        res = visible_left + visible_right
-
-print(res)
+print(max(res))
