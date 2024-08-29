@@ -1,34 +1,36 @@
 from collections import deque
 
-def bfs(N, M, maps, visited) :
+di = [-1, 1, 0, 0]
+dj = [0, 0, -1, 1]
+
+def bfs(N, M, board, visited) :
     q = deque()
-    q.append((0, 0, 0))     # y, x, broken
+    q.append((0, 0, 0)) # i, j, br
     visited[0][0][0] = 1
 
-    dy = [-1, 1, 0, 0]
-    dx = [0, 0, -1, 1]
-
     while q :
-        y, x, br = q.popleft()
+        ci, cj, br = q.popleft()
+        
+        # 목적지까지 도달했을 경우
+        if (ci, cj) == (N-1, M-1) :
+            return visited[ci][cj][br]
 
-        if y == N - 1 and x == M - 1:
-            return visited[y][x][br]
+        for d in range(4) :
+            ni, nj = ci + di[d], cj + dj[d]
 
-        for i in range(4) :
-            ny, nx = y + dy[i], x + dx[i]
+            if 0 <= ni < N and 0 <= nj < M :
+                if board[ni][nj] == 0 and visited[ni][nj][br] == 0 :
+                    visited[ni][nj][br] = visited[ci][cj][br] + 1
+                    q.append((ni, nj, br))
+                elif board[ni][nj] == 1 and br == 0 :
+                    visited[ni][nj][1] = visited[ci][cj][0] + 1
+                    q.append((ni, nj, 1))
 
-            if 0 <= ny < N and 0 <= nx < M :
-                if maps[ny][nx] == 0 and visited[ny][nx][br] == 0 :
-                    visited[ny][nx][br] = visited[y][x][br] + 1
-                    q.append((ny, nx, br))
-                elif maps[ny][nx] == 1 and br == 0 :
-                    visited[ny][nx][1] = visited[y][x][0] + 1
-                    q.append((ny, nx, 1))
-
-
+    # 다 돌지 못했을 경우
     return -1
 
+
 N, M = map(int, input().split())
-maps = [list(map(int, input())) for _ in range(N)]
+board = [list(map(int, input())) for _ in range(N)]
 visited = [[[0] * 2 for _ in range(M)] for _ in range(N)]
-print(bfs(N, M, maps, visited))
+print(bfs(N, M, board, visited))
