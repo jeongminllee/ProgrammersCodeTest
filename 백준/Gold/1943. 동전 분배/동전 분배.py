@@ -1,21 +1,34 @@
+INF = 100001
+def solve(N, coin, total) :
+    # 돈의 총합이 홀수이면 정확히 반으로 나누는 것은 불가능하다.
+    if total & 1 :
+        return 0
+
+    total //= 2
+    dp = [INF] * (total + 1)
+
+    # 0원은 항상 만들 수 있다.
+    dp[0] = 0
+
+    for x in range(1, N+1) :
+        cost, amount = coin[x]
+
+        for m in range(cost, total + 1) :
+            if dp[m] < INF :
+                dp[m] = 0
+                continue
+
+            if dp[m - cost] + 1 <= amount :
+                dp[m] = dp[m - cost] + 1
+    return 1 if dp[total] < INF else 0
+
 for _ in range(3) :
     N = int(input())
-    coins = {}
-    target = 0
+    coin, total = [None], 0
     for _ in range(N) :
-        a, b = map(int, input().split())
-        coins[a] = b
-        target += a * b
-    if target & 1 : # 홀수냐
-        print(0)
-        continue
-    target //= 2
-    dp = [1] + [0] * target
-    for coin in coins :
-        for money in range(target, coin-1, -1) :
-            if dp[money - coin] :
-                for j in range(coins[coin]) :
-                    if money + coin*j <= target :
-                        dp[money + coin*j] = 1
+        cost, amount = map(int, input().split())
 
-    print(dp[target])
+        coin.append((cost, amount))
+        total += cost * amount
+
+    print(solve(N, coin, total))
