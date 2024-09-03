@@ -1,3 +1,5 @@
+import sys
+sys.setrecursionlimit(10**6)
 def dfs(s, arr, v) :
     for (next_node, dist) in arr[s] :
         if v[next_node] == -1 :
