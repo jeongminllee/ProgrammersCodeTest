@@ -1,4 +1,4 @@
-aeiou = ('a','e','i','o','u')
+aeiou = 'aeiou'
 while True :
     S = input()
     if S == 'end' :
