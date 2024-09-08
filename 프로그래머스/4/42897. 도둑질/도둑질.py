@@ -18,4 +18,4 @@ def solution(money):
         dp2[i] = max(dp2[i - 1], dp2[i - 2] + money[i])
 
     # 두 경우 중 최댓값 반환
-    return max(dp1[-2], dp2[-1])
+    return max(max(dp1), max(dp2))
