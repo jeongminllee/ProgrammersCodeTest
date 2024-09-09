@@ -1,41 +1,57 @@
-def dfs(c) :
-    ans_dfs.append(c)        # 방문 노드 추가
-    v[c] = 1                # 방문 표시
-    
-    for n in adj[c] :
-        if not v[n] :        # 방문하지 않은 노드인 경우
-            dfs(n)
+from collections import deque
+
+# DFS 재귀
+# def dfs(c) :
+#     ans_dfs.append(c)
+#     v[c] = 1
+#
+#     for n in graph[c] :
+#         if not v[n] :
+#             dfs(n)
+
+# DFS stack
+def dfs(s) :
+    stack = [s]
+
+    while stack :
+        c = stack.pop()
+        if not v[c] :
+            v[c] = 1
+            ans_dfs.append(c)
+
+            for n in reversed(graph[c]) :
+                if not v[n] :
+                    stack.append(n)
+                    
 def bfs(s) :
-    q = []                    # 필요한 q, v[], 변수 생성
-    
-    q.append(s)                # q에 초기데이터(들) 삽입
+    q = deque()
+    q.append(s)
     ans_bfs.append(s)
     v[s] = 1
-    
     while q :
-        c = q.pop(0)
-        for n in adj[c] :
-            if not v[n] :        # 방문하지 않은 노드 => q 삽입
+        c = q.popleft()
+        for n in graph[c] :
+            if not v[n] :
                 q.append(n)
                 ans_bfs.append(n)
                 v[n] = 1
-                
-                
+
 N, M, V = map(int, input().split())
-adj = [[] for _ in range(N + 1)]
+graph = [[] for _ in range(N + 1)]
 for _ in range(M) :
     s, e = map(int, input().split())
-    adj[s].append(e)
-    adj[e].append(s)        # 양방향
-    
-# [1] 오름차순 정렬
-for i in range(1, N + 1) :
-    adj[i].sort()
-    
+    graph[s].append(e)
+    graph[e].append(s)
+
+for i in range(1, N+1) :
+    graph[i].sort()
+
+# 첫 줄에는 DFS
 v = [0] * (N + 1)
 ans_dfs = []
 dfs(V)
 
+# 두번째 줄에는 BFS
 v = [0] * (N + 1)
 ans_bfs = []
 bfs(V)
