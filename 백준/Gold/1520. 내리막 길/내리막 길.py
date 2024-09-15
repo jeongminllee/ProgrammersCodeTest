@@ -1,4 +1,5 @@
 import sys
+sys.setrecursionlimit(10**5)
 input = sys.stdin.readline
 
 def dfs(i, j) :
@@ -16,7 +17,7 @@ def dfs(i, j) :
 
         if 0 <= ni < N and 0 <= nj < M and arr[ni][nj] < arr[i][j] :
             cnt += dfs(ni, nj)
-
+            
     v[i][j] = cnt
     return v[i][j]
 
