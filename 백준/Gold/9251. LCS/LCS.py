@@ -1,37 +1,15 @@
-def lcs3(x, y) :
-    x, y = ' ' + x, ' ' + y
-    m, n = len(x), len(y)
-    c = [[0 for _ in range(n)] for _ in range(m)]
-    b = [[0 for _ in range(n)] for _ in range(m)]
-    for i in range(1, m):
-        for j in range(1, n):
-            if x[i] == y[j]:
-                c[i][j] = c[i - 1][j - 1] + 1
-                b[i][j] = 1
-            else:
-                c[i][j] = max(c[i - 1][j], c[i][j - 1])
-                b[i][j] = 2 if c[i][j - 1] > c[i - 1][j] else 3
-    return c, b
+text1 = input()
+text2 = input()
 
-def get_lcs(i, j, b, x) :
-    if i == 0 or j == 0 :
-        return ''
-    else :
-        if b[i][j] == 1 :
-            return get_lcs(i - 1, j - 1, b, x) + x[i]
-        elif b[i][j] == 2 :
-            return get_lcs(i, j - 1, b, x)
-        elif b[i][j] == 3 :
-            return get_lcs(i - 1, j, b, x)
+m = len(text1)
+n = len(text2)
 
-def print_matrix(m) :
-    for i in range(len(m)) :
-        for j in range(len(m[i])) :
-            print(m[i][j], end=' ')
-        print()
+dp = [[0] * (n + 1) for _ in range(m + 1)]  # dp 설정
+for i in range(1, m + 1) :
+    for j in range(1, n + 1) :
+        if text1[i-1] == text2[j-1] :       # 완전 탐색 - 같으면
+            dp[i][j] = dp[i-1][j-1] + 1     # 다음 배열에 + 1
+        else :
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1])  # 인접 벡터? 배열?에서 최대값을 불러온다.
 
-x = input()
-y = input()
-c, b = lcs3(x, y)
-# print_matrix(b)
-print(len(get_lcs(len(x), len(y), b, ' ' + x)))
+print(dp[m][n])
