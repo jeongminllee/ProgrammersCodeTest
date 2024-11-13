@@ -13,15 +13,20 @@ def bfs(s, e) :
         c = q.popleft()
         if c == e :
             return v[e]
-        if 0 <= c - 1 < 100001 and v[c - 1] == - 1 :
-            v[c - 1] = v[c] + 1
-            q.append(c - 1)
+        
         if 0 < c * 2 < 100001 and v[c * 2] == -1 :
             v[c * 2] = v[c]
             q.append(c * 2)
+
+        if 0 <= c - 1 < 100001 and v[c - 1] == -1 :
+            v[c - 1] = v[c] + 1
+            q.append(c - 1)
+
         if 0 <= c + 1 < 100001 and v[c + 1] == -1 :
             v[c + 1] = v[c] + 1
             q.append(c + 1)
 
+        
 n, k = map(int, input().split())
-print(bfs(n, k))
+res = bfs(n, k)
+print(res)
