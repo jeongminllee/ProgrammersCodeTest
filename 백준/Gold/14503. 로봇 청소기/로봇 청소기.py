@@ -1,36 +1,50 @@
-di = [-1, 0, 1, 0]
-dj = [0, 1, 0, -1]
+def robot_vacuum(N, M, start_r, start_c, start_d, room):
+    # 방향: 북, 동, 남, 서 (0, 1, 2, 3)
+    directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+    current_r, current_c, current_d = start_r, start_c, start_d
+    cleaned_count = 0
+    
+    # 청소 상태를 저장하는 배열
+    cleaned = [[False] * M for _ in range(N)]
+    
+    while True:
+        # 현재 칸이 청소되지 않은 경우, 청소
+        if not cleaned[current_r][current_c]:
+            cleaned[current_r][current_c] = True
+            cleaned_count += 1
+        
+        # 청소되지 않은 빈 칸이 있는지 확인
+        found_empty = False
+        
+        for _ in range(4):
+            # 방향을 반시계로 90도 회전
+            current_d = (current_d + 3) % 4  # 왼쪽 회전
+            new_r = current_r + directions[current_d][0]
+            new_c = current_c + directions[current_d][1]
+            
+            # 새로운 위치가 청소되지 않은 빈 칸인지 확인
+            if 0 <= new_r < N and 0 <= new_c < M and room[new_r][new_c] == 0 and not cleaned[new_r][new_c]:
+                current_r, current_c = new_r, new_c  # 이동
+                found_empty = True
+                break
+        
+        # 청소되지 않은 빈 칸이 없는 경우
+        if not found_empty:
+            # 후진할 수 있는지 확인
+            back_r = current_r - directions[current_d][0]
+            back_c = current_c - directions[current_d][1]
+            if room[back_r][back_c] == 1:  # 벽인 경우
+                break  # 작동을 멈춤
+            else:
+                current_r, current_c = back_r, back_c  # 후진
 
-def solve(ci, cj, dr) :
-    cnt = 0     # 청소한 공간 수
-    while 1 :   # 청소기가 더 이상 움직이지 못할 때 종료
-        # [1] 현재 위치 청소
-        arr[ci][cj] = 2
-        cnt += 1
+    return cleaned_count
 
-        # [2] 왼쪽 방향으로 순서대로 탐색해서 미청소 영역이 있는 경우 이동/방향설정, 없으면 후진
-        flag = 1
-        while flag == 1 :
-            # 왼쪽부터 네 방향 중 미청소 영역 있는 경우
-            for nd in ((dr + 3) % 4, (dr + 2) % 4, (dr + 1) % 4, dr) :
-                ni, nj = ci + di[nd], cj + dj[nd]
-                if arr[ni][nj] == 0 :   # 미청소 영역
-                    ci, cj, dr = ni, nj, nd
-                    flag = 0
-                    break
-
-            else :  # 4 방향 모두 미청소 영역 없음 ==> 후진
-                bi, bj = ci - di[dr], cj - dj[dr]   # 후진할 위치
-                if arr[bi][bj] == 1 :               # 벽! => 종료
-                    return cnt
-                else :
-                    ci, cj = bi, bj
-    # 이 곳에 도달할 리는 없지만...
-    return -1
-
+# 입력 받기
 N, M = map(int, input().split())
-si, sj, dr = map(int, input().split())
-arr = [list(map(int, input().split())) for _ in range(N)]
+start_r, start_c, start_d = map(int, input().split())
+room = [list(map(int, input().split())) for _ in range(N)]
 
-ans = solve(si, sj, dr)
-print(ans)
+# 결과 출력
+result = robot_vacuum(N, M, start_r, start_c, start_d, room)
+print(result)
