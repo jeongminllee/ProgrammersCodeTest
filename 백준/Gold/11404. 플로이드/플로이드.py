@@ -32,7 +32,5 @@ res = floyd_warshall(bus)
 for i in range(n) :
     for j in range(n) :
         if res[i][j] == INF :
-            print('0', end=' ')
-        else :
-            print(res[i][j], end=' ')
-    print()
+            res[i][j] = 0
+    print(*res[i])
