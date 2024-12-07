@@ -1,4 +1,4 @@
-INF = 500 * 2500 * 200 + 1
+INF = 500 * 2500 + 1
 
 def bf() :
     for i in range(N) :
