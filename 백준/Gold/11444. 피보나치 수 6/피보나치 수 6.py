@@ -9,17 +9,17 @@ def F(num) :
     # 해시값 존재 하지 않을 경우, 최소 한번은 연산해주어야 함.
     else :
         mid = num // 2
-        if num % 2 == 0 :
-            h0 = F(mid + 1)
-            h1 = F(mid - 1)
-            memo[num] = (h0 ** 2 - h1 ** 2) % 1_000_000_007
-            return memo[num]
-        else :
+        if num % 2 :
             h0 = F(mid + 1)
             h1 = F(mid)
             memo[num] = (h0 ** 2 + h1 ** 2) % 1_000_000_007
-            return memo[num]
 
+        else :
+            h0 = F(mid + 1)
+            h1 = F(mid - 1)
+            memo[num] = (h0 ** 2 - h1 ** 2) % 1_000_000_007
+        return memo[num]
+    
 N = int(input())
 memo = defaultdict(int)
 memo[1], memo[2] = 1, 1
