@@ -1,26 +1,28 @@
 from collections import defaultdict
 
-def F(num) :
-    if num <= 2 :
-        return memo[num]
-    # 중복 연산 막음 : 메모 활용
-    elif memo[num] > 0 :
-        return memo[num]
-    # 해시값 존재 하지 않을 경우, 최소 한번은 연산해주어야 함.
-    else :
-        mid = num // 2
-        if num % 2 :
-            h0 = F(mid + 1)
-            h1 = F(mid)
-            memo[num] = (h0 ** 2 + h1 ** 2) % 1_000_000_007
+def fibo_memo(n):
+    if n <= 2:
+        return memo[n]
+    elif memo[n] > 0:
+        return memo[n]
 
-        else :
-            h0 = F(mid + 1)
-            h1 = F(mid - 1)
-            memo[num] = (h0 ** 2 - h1 ** 2) % 1_000_000_007
-        return memo[num]
-    
-N = int(input())
+    quotient, remainder = divmod(n, 2)
+    if remainder == 0:
+        pp = fibo_memo(quotient - 1)
+        p = fibo_memo(quotient)
+        memo[n] = ((2 * pp + p) * p) % mod
+        return memo[n]
+    else:
+        p = fibo_memo(quotient + 1)
+        pp = fibo_memo(quotient)
+        memo[n] = (pp ** 2 + p ** 2) % mod
+        return memo[n]
+
+n = int(input())
+mod = 1_000_000_007
 memo = defaultdict(int)
-memo[1], memo[2] = 1, 1
-print(F(N))
+memo[0] = 0
+memo[1] = 1
+memo[2] = 1
+
+print(fibo_memo(n))
