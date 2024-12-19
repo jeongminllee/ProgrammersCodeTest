@@ -1,13 +1,18 @@
 T = int(input())
 
 for _ in range(T) :
-    score, k = 0, 0
-    lst = input().rstrip()
-    for j in lst :
-        if j == 'O' :
-            k += 1
+    S = input()
+    ans = 0
+    i = 0
+    for s in S :
+        if s == 'O' :
+            i += 1
         else :
-            k = 0
+            for num in range(1, i + 1) :
+                ans += num
+            i = 0
 
-        score += k
-    print(score)
+    if i != 0 :
+        for num in range(1, i + 1):
+            ans += num
+    print(ans)
