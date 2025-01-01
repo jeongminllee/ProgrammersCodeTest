@@ -11,28 +11,28 @@ def isValid(arr, x, y) :
 
 def solve(arr) :
     ans = float('inf')
-    for first_row in range(1<<10) :   # 10개 전구에 대한 모든 조작 경우의 수
+    for row in range(1<<10) :       # 10개 전구에 대한 모든 조작 경우의 수
         cnt = 0
-        narr = [copy.deepcopy(row) for row in arr]  # arr 상태 복사
+        narr = copy.deepcopy(arr)   # arr 상태 복사
         for i in range(10) :
-            if first_row & (1 << i) :   # 첫 줄의 i번째 전구를 조작하는 경우
+            if row & (1 << i) :     # 첫 줄의 i번째 전구를 조작하는 경우
                 isValid(narr, 0, i)
                 cnt += 1
 
-        for i in range(1, 10) : # 나머지 줄 처리
+        for i in range(1, 10) :     # 나머지 줄 처리
             for j in range(10) :
                 if narr[i-1][j] :   # 위 전구가 켜져 있으면 해당 위치의 전구 조작
                     isValid(narr, i, j)
                     cnt += 1
-        
+
         if all(not val for row in narr for val in row) :    # 모든 전구가 꺼져 있는지 확인
-            ans = min(ans, cnt)
+            ans = min(cnt, ans)
 
     return ans if ans != float('inf') else -1
 
 arr = []
 for _ in range(10) :
-    row = list(map(lambda x: x == 'O', input().strip()))
+    row = list(map(lambda x:x=='O', input().strip()))
     arr.append(row)
-
+    
 print(solve(arr))
