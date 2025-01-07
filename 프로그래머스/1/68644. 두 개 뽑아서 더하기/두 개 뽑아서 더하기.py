@@ -1,6 +1,10 @@
-def solution(numbers) :
-    lst = []
+def solution(numbers):
+    answer = set()
     for i in range(len(numbers)-1) :
         for j in range(i+1, len(numbers)) :
-            lst.append(numbers[i] + numbers[j])
-    return sorted(set(lst))
+            answer.add(numbers[i] + numbers[j])
+
+    answer = list(answer)
+    answer.sort()
+
+    return answer
