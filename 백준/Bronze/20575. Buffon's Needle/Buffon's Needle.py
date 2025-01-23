@@ -18,7 +18,7 @@ def main() :
 
         frac = abs(x1_trunc - x2_trunc)
 
-        if frac > 0 :
+        if frac >= 1 :
             cnt += 1
 
     X = cnt / N
