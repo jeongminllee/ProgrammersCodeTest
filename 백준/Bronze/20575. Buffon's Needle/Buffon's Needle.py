@@ -3,7 +3,6 @@ def trunc(x) :
         return int(x)
     else :
         return -int(abs(x) + 1)
-    
 def main() :
     # the number of needles
     N = int(input())
@@ -18,13 +17,14 @@ def main() :
         x2_trunc = trunc(x2)
 
         frac = abs(x1_trunc - x2_trunc)
+
         if frac > 0 :
             cnt += 1
 
     X = cnt / N
     pi = 2 / X
 
-    print('{:.6f}'.format(pi))
+    print(f'{pi:.6f}')
 
     # pi = 2 / X => pi 를 구하는 ...
     # 실수를 구하는 문제
@@ -36,4 +36,6 @@ def main() :
     # 소수점 이하는 버리고 차이의 절대값이 0 보다 크기만 하면 된다.
     # 그냥 int 로 취하니까 오류가 난다.
     # 음수가 있어서? 그런걸까?
+
+
 main()
