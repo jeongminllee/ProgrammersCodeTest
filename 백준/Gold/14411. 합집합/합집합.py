@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def main() :
     N = int(input())
     pos = [list(map(int, input().split())) for _ in range(N)]
