@@ -1,41 +1,36 @@
 from collections import deque
 
 def bfs(s) :
-    queue = deque()
-    queue.append(s)
+    q = deque()
+    q.append(s)
 
     visited = [-1] * (n + 1)
+    visited[s] = 0
 
-    while queue :
-        node, path = queue.popleft()
-        if distances[node] > path :
-            distances[node] = path
-        visited[node] = 1
-        for i in range(len(edges[node])) :
-            if edges[node][i] == 1 and visited[i] == -1 :
-                queue.append([i, path + 1])
-                visited[i] = 1
+    while q :
+        c = q.popleft()
+        for nxt in edges[c] :
+            if visited[nxt] == -1 :
+                q.append(nxt)
+                visited[nxt] = visited[c] + 1
 
-INF = 1001
+    return visited[1:]
+
 n, m = map(int, input().split())
-edges = [[0] * (n + 1) for _ in range(n+1)]
-distances = [INF] * (n + 1)
-distances[1] = 0
+edges = [[] for _ in range(n + 1)]
 
 for _ in range(m) :
-    u, v = map(int, input().split())
-    edges[u][v] = 1
-    edges[v][u] = 1
+    a, b = map(int, input().split())
+    edges[a].append(b)
+    edges[b].append(a)
 
-q = int(input())
-for _ in range(q) :
-    i, j = map(int, input().split())
-    edges[i][j] = 1
-    edges[j][i] = 1
-    bfs([1, 0])
-    for i in range(1, n + 1) :
-        if distances[i] == INF :
-            print(-1, end=' ')
-        else :
-            print(distances[i], end=' ')
-    print()
+t = int(input())
+distances = [-1] * (n + 1)
+distances[1] = 0
+
+for _ in range(t) :
+    a, b = map(int, input().split())
+    edges[a].append(b)
+    edges[b].append(a)
+    res = bfs(1)
+    print(*res)
