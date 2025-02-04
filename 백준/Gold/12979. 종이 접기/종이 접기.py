@@ -1,6 +1,3 @@
-import math
-import sys
-
 def min_folds_needed(L, target):
     """
     L에서 target까지 줄이기 위해 필요한 최소 접기 횟수를 구한다.
@@ -18,28 +15,22 @@ def min_folds_needed(L, target):
     return folds
 
 def solve():
-    import sys
-    data = sys.stdin.read().split()
-    if not data:
-        return
-    W = int(data[0])
-    H = int(data[1])
-    A = int(data[2])
-    
+    W, H, A = map(int, input().split())
+
     # 만약 A가 원래 종이의 넓이보다 크면 접어서 A를 만들 수 없다.
     if A > W * H:
         print(-1)
         return
-    
+
     # 원래 종이의 넓이가 이미 A라면 접을 필요가 없다.
     if A == W * H:
         print(0)
         return
-    
+
     best = float('inf')
     found = False
     # A의 약수 쌍 (w, h)를 모두 찾는다.
-    for d in range(1, int(math.isqrt(A)) + 1):
+    for d in range(1, int(A ** (1/2)) + 1):
         if A % d != 0:
             continue
         e = A // d
