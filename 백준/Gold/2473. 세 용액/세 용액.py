@@ -6,23 +6,23 @@ def main() :
     res = N * 1_000_000_007
 
     for i in range(N - 2) :
-        a = i + 1
-        b = N - 1
+        left = i + 1
+        right = N - 1
 
-        while a < b :
-            sol = arr[i] + arr[a] + arr[b]
+        while left < right :
+            sol = arr[i] + arr[left] + arr[right]
             if abs(sol) < res :
-                tmp = [arr[i], arr[a], arr[b]]
+                tmp = [arr[i], arr[left], arr[right]]
                 res = abs(sol)
 
                 if res == 0 :
                     break
 
             if sol < 0 :
-                a += 1
+                left += 1
             else :
-                b -= 1
-                
+                right -= 1
+
     print(*tmp)
-    
+
 main()
