@@ -2,13 +2,6 @@ def main() :
     N, M = map(int, input().split())
     memories = [0] + list(map(int, input().split()))
     costs = [0] + list(map(int, input().split()))
-
-    # items = []
-    #
-    # for (memory, price) in zip(memories, costs) :
-    #     items.append((memory, price))
-    #
-    # items.sort(key=lambda x:x[0])
     
     cost_max = sum(costs)
     dp = [[0] * (cost_max + 1) for _ in range(N + 1)]
