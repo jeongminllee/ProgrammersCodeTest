@@ -53,7 +53,6 @@ def sol_23178() :
     #   -k: 현재 구슬의 총 개수
     #   -l: 가장 왼쪽의 구슬 위치 (BIT.find(1))
     #   -r: 가장 오른쪽 구슬의 위치(BIT.find(k))
-    output_lines = []
     for _ in range(q) :
         k = int(input())
         if state[k] :
@@ -72,6 +71,6 @@ def sol_23178() :
         # 왼쪽으로 모으려면 r번 구슬을 k번 자리까지 옮겨야 하므로 r - total
         # 오른쪽으로 모으려면 l번 구슬을 n - total + 1 자리로 옮겨야 하므로 n - l + 1 - total
         ans = min(r - total, n - l + 1 - total)
-        print(str(ans))
+        print(ans)
 
 sol_23178()
