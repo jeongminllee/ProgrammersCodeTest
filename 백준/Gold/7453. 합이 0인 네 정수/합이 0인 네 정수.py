@@ -1,7 +1,13 @@
+import sys
+input = sys.stdin.readline
+
 def sol_7453() :
     n = int(input())
     res = 0
-    A, B, C, D = [], [], [], []
+    A = []
+    B = []
+    C = []
+    D = []
 
     for _ in range(n) :
         a, b, c, d = map(int, input().split())
@@ -10,20 +16,29 @@ def sol_7453() :
         C.append(c)
         D.append(d)
 
-    dct = {}
-    for a in A:
-        for b in B :
-            v = a + b
-            if v not in dct :
-                dct[v] = 1
-            else :
-                dct[v] += 1
+    AB = list(a + b for a in A for b in B)
+    CD = list(c + d for c in C for d in D)
+    AB.sort()
+    CD.sort()
 
-    for c in C :
-        for d in D :
-            v = -(c + d)
-            if v in dct :
-                res += dct[v]
+    left, right = 0, len(CD) - 1
+    while left < len(AB) and right >= 0 :
+        sumval = AB[left] + CD[right]
+        if sumval == 0:
+            nxt_left, nxt_right = left + 1, right - 1
+            while nxt_left < len(AB) and AB[left] == AB[nxt_left] :
+                nxt_left += 1
+            while nxt_right >= 0 and CD[right] == CD[nxt_right] :
+                nxt_right -= 1
+
+            res += (nxt_left - left) * (right - nxt_right)
+            left, right = nxt_left, nxt_right
+
+        elif sumval < 0 :
+            left += 1
+        else :
+            right -= 1
+
     print(res)
 
 
