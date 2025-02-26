@@ -1,28 +1,33 @@
-import sys
-input = sys.stdin.readline
-
+def gcd(a, b) :
+    if b == 0 :
+        return a
+    if a % b == 0 :
+        return b
+    else :
+        return gcd(b, a%b)
 def sol_1711():
     N = int(input())
     points = [list(map(int, input().split())) for _ in range(N)]
 
     ans = 0
 
-    # 모든 가능한 두 점의 조합에 대해
-    for i in range(N):
-        for j in range(i + 1, N):
-            for k in range(j + 1, N):
-                # 세 점의 좌표
-                x1, y1 = points[i]
-                x2, y2 = points[j]
-                x3, y3 = points[k]
+    for i in range(N) :
+        check = dict()
+        for j in range(N) :
+            if i == j :
+                continue
 
-                # 세 변의 길이의 제곱 계산
-                d1 = (x1 - x2) ** 2 + (y1 - y2) ** 2
-                d2 = (x2 - x3) ** 2 + (y2 - y3) ** 2
-                d3 = (x3 - x1) ** 2 + (y3 - y1) ** 2
+            x, y = points[i][0] - points[j][0], points[i][1] - points[j][1]
+            val = gcd(x, y)
+            x, y = x // val, y // val
+            if (x,y) not in check :
+                check[(x,y)] = 1
+            else :
+                check[(x, y)] += 1
 
-                if 2 * max(d1, d2, d3) == d1 + d2 + d3 :
-                    ans += 1
+        for nx, ny in check :
+            if check.get((-ny, nx)) :
+                ans += check[(nx, ny)] * check[(-ny, nx)]
 
     print(ans)
 
