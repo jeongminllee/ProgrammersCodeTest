@@ -39,11 +39,11 @@ def sol_3098() :
             friends[b].add(a)
 
         days += 1
-        daily_new_friends.append(len(new_friend))    # 친구 관계는 양방향이므로 // 2
+        daily_new_friends.append(len(new_friend))
 
     # 결과 출력
     print(days)
     for cnt in daily_new_friends :
         print(cnt)
-        
+
 sol_3098()
