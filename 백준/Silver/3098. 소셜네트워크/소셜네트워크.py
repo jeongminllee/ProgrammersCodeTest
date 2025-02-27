@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def sol_3098() :
     N, M = map(int, input().split())
     friends = [set() for _ in range(N + 1)]
@@ -11,7 +14,6 @@ def sol_3098() :
     days = 0
     daily_new_friends = []
 
-    # BFS 기반으로 친구 관계 확장
     while True :
         new_count = 0
         for i in range(1, N + 1) :
