@@ -2,24 +2,21 @@ import sys
 input = sys.stdin.readline
 
 def distance(x1, y1, x2, y2) :
-    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** (1/2)
-
+    return ((x2 - x1) ** 2 + (y2 - y1) ** 2)
 def sol_6003() :
     N = int(input())    # The number of cows
-    cows = [[0, 0]]
+    cows = [list(map(int, input().split())) for _ in range(N)]
+    mn = 200_001 ** 2
+    cow1 = cow2 = 0
 
-    for _ in range(N) :
-        cows.append(list(map(int, input().split())))
+    for i in range(N) :
+        for j in range(i) :
+            d = distance(cows[i][0], cows[i][1], cows[j][0], cows[j][1])
+            if d < mn :
+                mn = d
+                cow1 = j + 1
+                cow2 = i + 1
+                
+    print(cow1, cow2)
 
-
-    mn_dist = 200_001
-    res = [0, 0]
-    for i in range(1, N) :
-        for j in range(i + 1, N + 1) :
-            # 같은 길이는 존재하지 않는다고 했으니까.
-            if distance(cows[i][0], cows[i][1], cows[j][0], cows[j][1]) < mn_dist :
-                mn_dist = distance(cows[i][0], cows[i][1], cows[j][0], cows[j][1])
-                res = [i, j]
-
-    print(*res)
 sol_6003()
