@@ -1,27 +1,33 @@
 from collections import deque
 
-# 상 좌 하 우 => 이거를 i % 2 = 0, 1 일때를 구별해도 좋지 않을까?
 di = [-1, 0, 1, 0]
 dj = [0, -1, 0, 1]
 
-def solution(board) :
+def solution(board):
     n = len(board)
-    costs = [[[float('inf')] * 2 for _ in range(n)] for _ in range(n)]
-
+    costs = [[[1<<32] * 2 for _ in range(n)] for _ in range(n)]
+    
     q = deque()
     q.append(((0, 0), 0, -1))   # (x, y), cost, direction
-    costs[0][0] = [0,0]
-
+    costs[0][0] = [0, 0]
+    
     while q :
         (i, j), cost, direction = q.popleft()
+        
         for d in range(4) :
             ni, nj = i + di[d], j + dj[d]
             new_direction = d % 2
+            
             if 0 <= ni < n and 0 <= nj < n and board[ni][nj] == 0 :
-                new_cost = cost + 600 if direction != new_direction and direction != -1 else cost + 100
+                if direction != new_direction and direction != -1 :
+                    new_cost = cost + 600
+                else :
+                    new_cost = cost + 100
+                    
                 if costs[ni][nj][new_direction] > new_cost :
                     costs[ni][nj][new_direction] = new_cost
                     q.append(((ni, nj), new_cost, new_direction))
+                    
     return min(costs[-1][-1])
 
 # def solution(board):
