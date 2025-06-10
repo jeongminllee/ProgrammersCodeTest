@@ -13,6 +13,9 @@ def move(i,j,dr) :
 
 def dfs(n, ri, rj, bi, bj) :
     global res
+    if (n, ri, rj, bi, bj) in v_set :   # 이미 시도회수에 이 좌표 조합을 해봤으면 => 가지치기!
+        return
+    v_set.add((n, ri, rj, bi, bj))      # 이후 중복체크 방지를 위해 방문표시
 
     if n > 10 :     # 종료조건 : 10회 이하까지만 진행
         return
@@ -61,6 +64,7 @@ for i in range(N) :
         if arr[i][j] == 'B' :
             bi, bj = i, j
 
+v_set = set()   # 해당 시도회수 때 R, B 구슬좌표가 같다면 => 이미 해본 경우!
 res = 11
 dfs(1, ri,rj,bi,bj)
 
