@@ -1,14 +1,14 @@
-alpha = [' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-symbol = [' ', '@', '8', '(', '|)', '3', '#', '6', '[-]', '|', '_|', '|<', '1', '[]\/[]', '[]\[]', '0', '|D', '(,)', '|Z', '$', "']['", '|_|', '\/', '\/\/', '}{', '`/', '2']
+s = input().lower()
+# ord('a') = 97
+syms = ['@', '8', '(', '|)', '3', '#', '6', '[-]', '|', '_|', '|<', '1', '[]\/[]', '[]\[]', '0', '|D', '(,)', '|Z', '$', "']['", '|_|', '\/', '\/\/', '}{', '`/', '2']
+'''
+res = ''
 
-k = input().lower()
-
-answer = ''
-
-for character in k:
-    if character in alpha:
-        answer += symbol[alpha.index(character)]
-    else:
-        answer += character
-
-print(answer)
+for char in s :
+    if char.isalpha() :
+        res += syms[ord(char) - 97]
+    else :
+        res += char
+print(res)
+'''
+print(''.join(syms[ord(c) - 97] if c.isalpha() else c for c in s))
