@@ -6,7 +6,6 @@ def dfs(size, time, idx) :
 
     if time > M :
         return
-
     else :
         snowball = max(snowball, size)
 
