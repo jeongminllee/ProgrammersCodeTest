@@ -7,5 +7,11 @@ left // n = 0 1 2 ... => 첫 숫자의 인덱스
 2 => 3 3 3 4 ... n
 for i in range(n)
 '''
+# def solution(n, left, right):
+#     return [max(i % n, i // n) + 1 for i in range(left, right + 1)]
 def solution(n, left, right):
-    return [max(i // n, i % n) + 1 for i in range(left, right + 1)]
+    answer = []
+    for i in range(left, right + 1) :
+        answer.append(max(i % n , i // n) + 1)
+        
+    return answer
