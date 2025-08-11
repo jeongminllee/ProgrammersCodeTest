@@ -1,10 +1,11 @@
+import sys
+input = sys.stdin.readline
+
 def sol_6497(m, n) :
     edges = []
-    total = 0
 
     for _ in range(n) :
         x, y, z = map(int, input().split())
-        total += z
         edges.append((z, x, y))
 
     # Kruskal : sort edges by weight
@@ -12,7 +13,6 @@ def sol_6497(m, n) :
 
     # DSU (Union-Find)
     parent = list(range(m))
-    rank = [0] * m
 
     def find(a) :
         if a != parent[a] :
@@ -27,7 +27,6 @@ def sol_6497(m, n) :
             parent[fb] = parent[fa]
 
     mst = 0
-    picked = 0
     for w, u, v in edges :
         if find(u) == find(v) :
             mst += w
