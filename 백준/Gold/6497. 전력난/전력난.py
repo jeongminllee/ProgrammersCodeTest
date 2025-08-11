@@ -15,34 +15,26 @@ def sol_6497(m, n) :
     rank = [0] * m
 
     def find(a) :
-        while a != parent[a] :
-            parent[a] = parent[parent[a]]
-            a = parent[a]
-        return a
+        if a != parent[a] :
+            parent[a] = find(parent[a])
+        return parent[a]
 
     def union(a, b) :
         fa, fb = find(a), find(b)
-        if fa == fb :
-            return False
-        if rank[fa] < rank[fb] :
-            parent[fa] = fb
-        elif rank[fa] > rank[fb] :
-            parent[fb] = fa
+        if fa > fb :
+            parent[fa] = parent[fb]
         else :
-            parent[fb] = fa
-            rank[fa] += 1
-        return True
+            parent[fb] = parent[fa]
 
     mst = 0
     picked = 0
     for w, u, v in edges :
-        if union(u, v) :
+        if find(u) == find(v) :
             mst += w
-            picked += 1
-            if picked == m - 1 :
-                break
+            continue
+        union(u, v)
 
-    print(total - mst)
+    print(mst)
         
 
 while True :
