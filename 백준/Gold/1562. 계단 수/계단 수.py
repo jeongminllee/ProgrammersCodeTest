@@ -1,28 +1,34 @@
 N = int(input())
-num_range = 10
-bit_range = 1 << num_range
-MOD = 10 ** 9
-dp = [[[0] * bit_range for _ in range(num_range)] for _ in range(N + 1)]
+if N < 10 :
+    print(0)
+    exit()
 
-# 한자리 수 부터 시작하려면 한자리 수들 다 1로 초기화
-# 1 예시 0b0000000010
-for k in range(num_range) :
-    dp[1][k][1<<k] = 1
+MOD = int(1e9)  # 정수 모듈러
 
-for i in range(1, N) :  # N - 1 까지하면 N 구할 수 있음
-    for j in range(num_range) :
-        for b in range(bit_range) :
-            if 0 <= j < 9 :
-                more = b | 1 << (j + 1)
-                dp[i+1][j+1][more] += dp[i][j][b]
-                dp[i+1][j+1][more] %= MOD
-            if 0 < j <= 9 :
-                less = b | 1 << (j - 1)
-                dp[i+1][j-1][less] += dp[i][j][b]
-                dp[i+1][j-1][less] %= MOD
+# dp[N번째 수][마지막 수][방문한 수 bitmasking(0~1023)]
+dp = [[0] * 1024 for _ in range(10)]
+for d in range(1, 10) :
+    dp[d][1<<d] = 1
 
-total = 0
-for k in range(1, num_range) :  # 0으로 시작하는 수 제외
-    total += dp[N][k][0b1111111111]
-    total %= MOD
-print(total)
+for i in range(2, N + 1) :
+    nxt = [[0] * 1024 for _ in range(10)]
+    for last in range(10) :
+        row = dp[last]
+        # last - 1 로 전이
+        if last > 0 :
+            nl = last - 1
+            for mask, val in enumerate(row) :
+                if val :
+                    nm = mask | (1 << nl)
+                    nxt[nl][nm] = (nxt[nl][nm] + val) % MOD
+        if last < 9 :
+            nl = last + 1
+            for mask, val in enumerate(row) :
+                if val :
+                    nm = mask | (1 << nl)
+                    nxt[nl][nm] = (nxt[nl][nm] + val) % MOD
+
+    dp = nxt
+
+res = sum(dp[last][1023] for last in range(10)) % MOD
+print(res)
