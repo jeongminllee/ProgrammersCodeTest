@@ -1,29 +1,15 @@
 N = int(input())
 arr = [list(map(int, input().split())) for _ in range(N)]
-visited = [0] * N
-res = 99999
-
-def cal() :
-    global res
-    left, right = 0, 0
-    for i in range(N) :
-        for j in range(N) :
-            if visited[i] and visited[j] :
-                left += arr[i][j]
-            elif not visited[i] and not visited[j] :
-                right += arr[i][j]
-
-    res = min(res, abs(left - right))
-
-def bt(depth) :
-    if depth == N :
-        cal()
-        return
-
-    visited[depth] = 1
-    bt(depth + 1)
-    visited[depth] = 0
-    bt(depth + 1)
-
-bt(0)
+w = [sum(arr[i][j] + arr[j][i] for j in range(N)) for i in range(N)]
+S = sum(w)
+dp = 1
+for i in range(N) :
+    dp |= (dp << w[i])
+half = S // 2
+res = half
+dp = bin(dp)
+for i, bit in enumerate(dp[2+half:]) :
+    if bit == '1' :
+        res = i
+        break
 print(res)
