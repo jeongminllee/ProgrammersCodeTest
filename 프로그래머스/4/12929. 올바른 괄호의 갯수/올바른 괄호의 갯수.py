@@ -1,7 +1,14 @@
-# dp2 = dp1 + dp1
-# dp3 = dp2 + dp1 + dp2
-# dp4 = dp3 + dp2 + dp2 + dp3
-# dp5 = dp4 + dp3 + dp2 + dp1 + dp2 + dp3 + dp4 = 14 + 5 + 2 + 1 + 2 + 5 + 14 = 28 + 10 + 5 = 42
+def solution(n):
+    dp = [0] * (2*n + 1)
+    dp[0] = 1
+    dp[1] = 1
+    
+    for i in range(2, 2*n + 1) :
+        dp[i] = i * dp[i-1]
+        
+    return (dp[2*n]) // (dp[n]**2 * (n + 1))
+    
+'''
 def solution(n):
     dp = [0] * (n + 1)
     dp[0] = 1
@@ -19,3 +26,4 @@ def solution(n):
         dp[i] = s
         
     return dp[n]
+'''
