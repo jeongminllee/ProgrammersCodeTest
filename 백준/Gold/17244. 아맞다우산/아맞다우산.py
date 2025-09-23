@@ -1,47 +1,48 @@
 from collections import deque
 
-di = [-1, 1, 0, 0]
-dj = [0, 0, -1, 1]
-
-def bfs(si, sj, ei, ej, visited) :
+def bfs(si, sj, ei, ej, cnt) :
     q = deque()
+    v = [[[-1] * (1<<cnt) for _ in range(M)] for _ in range(N)]
+
     q.append((si, sj, 0))
-    visited[0][si][sj] = 0
+    v[si][sj][0] = 0
 
     while q :
         ci, cj, bit = q.popleft()
-        if arr[ci][cj] == 'E' and bit == 2 ** cnt - 1 :
-            return visited[bit][ci][cj]
+        if (ci, cj) == (ei, ej) and bit == 2 ** cnt - 1 :
+            return v[ci][cj][bit]
 
-        for d in range(4) :
-            ni, nj = ci + di[d], cj + dj[d]
+        for di, dj in ((-1, 0), (1, 0), (0, -1), (0, 1)) :
+            ni, nj = ci + di, cj + dj
 
-            if 0 <= ni < N and 0 <= nj < M and visited[bit][ni][nj] == -1 and arr[ni][nj] != '#':
-                if arr[ni][nj] == 'X' :
-                    nxt_bit = bit | 1<<tbl[(ni, nj)]
-                    visited[nxt_bit][ni][nj] = visited[bit][ci][cj] + 1
-                    q.append((ni, nj, nxt_bit))
+            if 0<=ni<N and 0<=nj<M and v[ni][nj][bit] == -1 :
+                if arr[ni][nj] == '#' :
+                    continue
+                elif arr[ni][nj] == 'X' :
+                    nxt_cnt = bit | (1<<tbl[(ni, nj)])
+                    v[ni][nj][nxt_cnt] = v[ci][cj][bit] + 1
+                    q.append((ni, nj, nxt_cnt))
                 else :
-                    visited[bit][ni][nj] = visited[bit][ci][cj] + 1
+                    v[ni][nj][bit] = v[ci][cj][bit] + 1
                     q.append((ni, nj, bit))
 
+    return -1
 
 M, N = map(int, input().split())
 arr = [list(input()) for _ in range(N)]
-tbl, cnt = {}, 0
 
+cnt = 0
+tbl = {}
 for i in range(N) :
     for j in range(M) :
         if arr[i][j] == 'S' :
+            si, sj = i, j
             arr[i][j] = '.'
-            start = (i, j)
-        elif arr[i][j] == 'E' :
-            end = (i, j)
-        elif arr[i][j] == 'X' :
+        if arr[i][j] == 'E' :
+            ei, ej = i, j
+            arr[i][j] = '.'
+        if arr[i][j] == 'X' :
             tbl[(i, j)] = cnt
             cnt += 1
 
-visited = [[[-1] * M for _ in range(N)] for _ in range(1<<cnt)]
-si, sj = start
-ei, ej = end
-print(bfs(si, sj, ei, ej, visited))
+print(bfs(si, sj, ei, ej, cnt))
