@@ -4,10 +4,9 @@ def solution(s):
     for i in range(len(s)) :
         if not s[i].isalpha() :
             res += s[i]
+        elif (i==0 or s[i-1] == ' ') and s[i].isalpha() :
+            res += s[i].upper()
         else :
-            if (s[i-1] == ' ' or i == 0) and s[i].isalpha() :
-                res += s[i].upper()
-            elif s[i].isalpha() :
-                res += s[i].lower()
-                
+            res += s[i].lower()
+            
     return res
