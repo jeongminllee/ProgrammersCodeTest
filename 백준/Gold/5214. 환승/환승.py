@@ -1,8 +1,3 @@
-# 그냥 BFS 하면 메모리 초과가 나옴.
-# 역 - 하이퍼튜브 - 역 으로 방문하는 구조를 만들어야 된다.
-# 그 말은 하이퍼 튜브 배열과 역 배열을 따로 만들어서 관리하고
-# visited 배열 역시 따로 만들어서 관리.
-
 from collections import deque
 
 def bfs(start) :
@@ -28,11 +23,11 @@ def bfs(start) :
                         v_station[nxt] = 1
                         q.append((nxt, cnt + 1))
 
-    # 도달하지 못한다면
     return -1
 
-N, K, M = map(int, input().split()) # 역, 하이퍼 튜브가 연결하는 역 개수, 하이퍼 튜브
-station = [[] for _ in range(N + 1)]    # 1-idx
+N, K, M = map(int, input().split())
+
+station = [[] for _ in range(N + 1)]
 hyper_tube = [[] for _ in range(M + 1)]
 
 for idx in range(M) :
@@ -41,5 +36,4 @@ for idx in range(M) :
     for num in lst :
         station[num].append(idx)
 
-res = bfs(1)
-print(res)
+print(bfs(1))
