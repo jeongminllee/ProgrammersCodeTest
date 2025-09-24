@@ -1,38 +1,36 @@
-from collections import defaultdict
-import heapq
+from collections import defaultdict, deque
 
 N = int(input())
 items = defaultdict(list)
 values = defaultdict(int)
-v_set = set()
 
 for _ in range(N) :
     a, b = input().split()
-    v_set.update({a, b})
     items[a].append(b)
     values[b] += 1
 
-buy_item = []
-for visit in v_set :
-    if values[visit] == 0 :
-        heapq.heappush(buy_item, visit)
+q = deque()
+for i in items :
+    if values[i] == 0 :
+        q.append((i, 0))
 
-poped_item, tmp = [], []
-while buy_item :
-    poped_item.append(node:=heapq.heappop(buy_item))
-    for nxt_node in sorted(items[node]) :
-        values[nxt_node] -= 1
-        if values[nxt_node] == 0 :
-            heapq.heappush(tmp, nxt_node)
+res = defaultdict(list)
+while q :
+    temp, num = q.popleft()
+    res[num].append(temp)
+    if temp in items :
+        for i in items[temp] :
+            values[i] -= 1
+            if values[i] == 0 :
+                q.append((i, num + 1))
 
-    if not buy_item :
-        if not tmp :
-            break
-        buy_item = tmp
-        tmp = []
+for row in res.values() :
+    row.sort()
 
-if len(poped_item) != len(v_set) :
-    print(-1)
+if len(values) == sum(len(row) for row in res.values()) :
+    for row in res.values() :
+        if row :
+            print(*row, sep='\n')
+
 else :
-    for x in poped_item :
-        print(x)
+    print(-1)
