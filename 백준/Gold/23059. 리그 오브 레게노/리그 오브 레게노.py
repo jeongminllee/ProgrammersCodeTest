@@ -2,25 +2,25 @@ from collections import defaultdict
 import heapq
 
 N = int(input())
-item = defaultdict(list)
+items = defaultdict(list)
 values = defaultdict(int)
-visited = set()
+v_set = set()
 
 for _ in range(N) :
     a, b = input().split()
-    visited.update({a, b})
-    item[a].append(b)
+    v_set.update({a, b})
+    items[a].append(b)
     values[b] += 1
 
 buy_item = []
-for visit in visited :
+for visit in v_set :
     if values[visit] == 0 :
         heapq.heappush(buy_item, visit)
 
 poped_item, tmp = [], []
 while buy_item :
     poped_item.append(node:=heapq.heappop(buy_item))
-    for nxt_node in sorted(item[node]) :
+    for nxt_node in sorted(items[node]) :
         values[nxt_node] -= 1
         if values[nxt_node] == 0 :
             heapq.heappush(tmp, nxt_node)
@@ -31,7 +31,7 @@ while buy_item :
         buy_item = tmp
         tmp = []
 
-if len(poped_item) != len(visited) :
+if len(poped_item) != len(v_set) :
     print(-1)
 else :
     for x in poped_item :
