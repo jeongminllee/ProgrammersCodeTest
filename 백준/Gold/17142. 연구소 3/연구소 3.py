@@ -2,7 +2,22 @@ di = [-1, 1, 0, 0]
 dj = [0, 0, -1, 1]
 
 from collections import deque
-from itertools import combinations
+
+def generate_combination(lst, k) :
+    def backtrack(start, combination) :
+        if len(combination) == k :
+            result.append(combination[:])
+            return
+
+        for i in range(start, len(lst)) :
+            combination.append(lst[i])
+            backtrack(i+1, combination)
+            combination.pop()
+
+    result = []
+    backtrack(0, [])
+    return result
+
 
 def bfs(virus, time, empty) :
     global res
@@ -49,7 +64,8 @@ for i in range(N) :
         elif arr[i][j] == 0 :
             empty += 1
 
-for virus in combinations(virus_list, M) :
+
+for virus in generate_combination(virus_list, M) :
     res = min(res, bfs(virus, res, empty))
 
 if res == 1<<32 :
