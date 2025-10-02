@@ -1,10 +1,3 @@
-def solution(numbers):
-    answer = []
-    for number in numbers :
-        bits = num_to_bin(number)
-        answer.append(int(trees(bits, 0, len(bits)-1)))
-    return answer
-
 def num_to_bin(number) :
     bins = bin(number)[2:]
     n = 1
@@ -23,3 +16,10 @@ def trees(number, left, right) :
             return False
     
     return trees(number, left, mid-1) and trees(number, mid+1, right)
+
+def solution(numbers):
+    answer = []
+    for number in numbers :
+        bits = num_to_bin(number)
+        answer.append(int(trees(bits, 0, len(bits)-1)))
+    return answer
