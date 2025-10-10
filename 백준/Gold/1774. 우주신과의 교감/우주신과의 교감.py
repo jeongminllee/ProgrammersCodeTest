@@ -1,46 +1,71 @@
-def find(parent, a) :
-    if a != parent[a] :
-        parent[a] = find(parent, parent[a])
+import heapq
 
-    return parent[a]
+class UnionFind() :
+    def __init__(self, n):
+        self.dp = [-1] * n
 
-def union(parent, a, b) :
-    a = find(parent,a)
-    b = find(parent,b)
+    def find(self, i) :
+        if self.dp[i] < 0 :
+            return i
+        self.dp[i] = self.find(self.dp[i])
 
-    if a < b :
-        parent[b] = a
-    else :
-        parent[a] = b
+        return self.dp[i]
 
-def get_dist(loc1, loc2) :
-    x1, y1, x2, y2 = loc1[0], loc1[1], loc2[0], loc2[1]
-    return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+    def union(self, a, b):
+        if a==b :
+            return False
 
-N, M = map(int, input().split())    # 우주신들 개수, 연결된 통로 개수
-parent = list(range(N+1))
+        ra, rb = self.find(a), self.find(b)
+        if ra == rb :
+            return False
 
-edges = [[-1, -1]]
-for i in range(1, N+1) :
-    edges.append(list(map(int, input().split())))
+        if self.dp[ra] < self.dp[rb] :
+            self.dp[ra] += self.dp[rb]
+            self.dp[rb] = ra
+        else :
+            self.dp[rb] += self.dp[ra]
+            self.dp[ra] = rb
+
+        return True
+
+    def get_size(self, i) :
+        return -self.dp[self.find(i)]
+
+def sol(coor, uf) :
+    L = len(coor)
+    heap = []
+
+    for i in range(1, L-1) :
+        ay = coor[i][0]
+        ax = coor[i][1]
+        group = uf.find(i)
+
+        for j in range(i + 1, L) :
+            if uf.find(j) == group:
+                continue
+            d = (ay - coor[j][0])**2 + (ax - coor[j][1])**2
+            heapq.heappush(heap, (d, i, j))
+
+    cost = 0.0
+    cnt = L - 1
+
+    while True :
+        v, i, j = heapq.heappop(heap)
+
+        if uf.union(i, j) :
+            cost += v**(0.5)
+
+            if uf.get_size(i) == cnt :
+                break
+
+    return cost
+
+N, M = map(int, input().split())
+
+coor = [0] + [list(map(int, input().split())) for _ in range(N)]
+uf = UnionFind(N+1)
 
 for _ in range(M) :
-    a, b = map(int, input().split())
-    union(parent, a, b)
+    uf.union(*map(int, input().split()))
 
-possible = []
-for i in range(1, len(edges)-1) :
-    for j in range(i+1, len(edges)) :
-        possible.append([get_dist(edges[i], edges[j]), i, j])
-
-possible.sort()
-res = 0
-
-for p in possible :
-    cost, x, y = p
-
-    if find(parent, x) != find(parent, y) :
-        union(parent, x, y)
-        res += cost
-
-print(f"{res:.2f}")
+print(f"{sol(coor, uf):.2f}")
