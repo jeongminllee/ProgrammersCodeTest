@@ -1,36 +1,33 @@
-def dfs(graph, now, N) :
-    stack = []
-    stack.append(now)
-    path = []
+def main() :
+    N = int(input())
+    graph = [list(map(int, input().split())) for _ in range(N)]
+
+    degree = [sum(now) for now in graph]
+
+    for i in degree :
+        if i % 2 :
+            print(-1)
+            exit()
+
+    start = 0
+    ptr = [0] * N
+    stack = [start]
 
     while stack :
-        now = stack[-1]
-        if graph[now] :
-            for near, cnt in graph[now].items() :
-                graph[now][near] -= 1
-                graph[near][now] -= 1
-                if graph[now][near] == 0 :
-                    graph[now].pop(near)
-                    graph[near].pop(now)
-                stack.append(near)
-                break
+        node = stack[-1]
+
+        while ptr[node] < N and not graph[node][ptr[node]] :
+            ptr[node] += 1
+
+        if ptr[node] == N :
+            print(stack.pop() + 1, end=' ')
+
         else :
-            path.append(now+1)
-            stack.pop()
+            graph[node][ptr[node]] -= 1
+            graph[ptr[node]][node] -= 1
+            stack.append(ptr[node])
+            
 
-    return path
 
-N = int(input())
-adj = [list(map(int, input().split())) for _ in range(N)]
-graph = [{} for _ in range(N)]
-for i in range(N) :
-    degree = 0
-    for j in range(N) :
-        degree += adj[i][j]
-        if adj[i][j] :
-            graph[i][j] = adj[i][j]
-    if degree % 2 :
-        print(-1)
-        exit()
-        
-print(*dfs(graph, 0, N))
+if __name__ == '__main__' :
+    main()
