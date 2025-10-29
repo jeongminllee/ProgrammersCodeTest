@@ -1,32 +1,29 @@
 from collections import deque
 
-def bfs(s, e) :
-    # 1. q 생성, v[] 생성
-    q = deque()
-    v = [-1] * 100001
+MAX = 10**5 + 1
 
-    # 2. 초기 데이터 삽입, v[] 초기화
-    q.append(s)
-    v[s] = 0
+def bfs(start, end) :
+    v[start] = 0
+    q = deque()
+    q.append(start)
 
     while q :
-        c = q.popleft()
-        if c == e :
-            return v[e]
-        
-        if 0 < c * 2 < 100001 and v[c * 2] == -1 :
-            v[c * 2] = v[c]
-            q.append(c * 2)
+        curr = q.popleft()
+        if curr == end :
+            return v[curr]
 
-        if 0 <= c - 1 < 100001 and v[c - 1] == -1 :
-            v[c - 1] = v[c] + 1
-            q.append(c - 1)
+        if 0 < curr * 2 < MAX and v[curr*2] == -1 :
+            v[curr * 2] = v[curr]
+            q.append(curr * 2)
 
-        if 0 <= c + 1 < 100001 and v[c + 1] == -1 :
-            v[c + 1] = v[c] + 1
-            q.append(c + 1)
+        if 0 <= curr - 1 < MAX and v[curr - 1] == -1 :
+            v[curr - 1] = v[curr] + 1
+            q.append(curr - 1)
 
-        
-n, k = map(int, input().split())
-res = bfs(n, k)
-print(res)
+        if 0 <= curr + 1 < MAX and v[curr + 1] == -1 :
+            v[curr + 1] = v[curr] + 1
+            q.append(curr + 1)
+
+N, K = map(int, input().split())
+v = [-1] * MAX
+print(bfs(N, K))
