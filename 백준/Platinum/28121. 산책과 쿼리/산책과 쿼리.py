@@ -33,6 +33,7 @@ def union(a: int, b: int) :
     if good_works[a_root] :
         if size_a < size_b:
             parents[a_root] = b_root
+            good_works[b_root] = True
             small_to_large(element_sets[a_root], element_sets[b_root])
         else:
             parents[b_root] = a_root
