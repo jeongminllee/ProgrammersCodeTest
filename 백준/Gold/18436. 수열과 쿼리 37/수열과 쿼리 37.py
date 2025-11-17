@@ -1,4 +1,6 @@
+import sys
 import math
+input = sys.stdin.readline
 
 def init(lst, tree, node, start, end) :
     if start == end :
