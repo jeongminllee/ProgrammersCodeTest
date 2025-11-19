@@ -1,3 +1,4 @@
+'''
 from collections import defaultdict
 
 class Trie :
@@ -74,5 +75,71 @@ def solution(words, queries) :
 
         cache[q] = cnt
         answer.append(cnt)
+
+    return answer
+'''
+
+def bisect_left(a, x) :
+    left, right = 0, len(a)
+    while left < right :
+        mid = (left + right) // 2
+        if a[mid] < x :
+            left = mid + 1
+        else :
+            right = mid
+    return left
+
+def bisect_right(a, x) :
+    left, right = 0, len(a)
+    while left < right:
+        mid = (left + right) // 2
+        if a[mid] <= x:
+            left = mid + 1
+        else:
+            right = mid
+    return left
+
+def cnt_in_range(words, left_value, right_value) :
+    right_idx = bisect_right(words, right_value)
+    left_idx = bisect_left(words, left_value)
+    return right_idx - left_idx
+
+def solution(words, queries) :
+    answer = []
+
+    max_len = 10000
+    data = [[] for _ in range(max_len + 1)]
+    reverse = [[] for _ in range(max_len + 1)]
+
+    for word in words :
+        L = len(word)
+        data[L].append(word)
+        reverse[L].append(word[::-1])
+
+    for i in range(max_len + 1) :
+        if data[i] :
+            data[i].sort()
+        if reverse[i] :
+            reverse[i].sort()
+
+    for query in queries :
+        L = len(query)
+
+        if not data[L] :
+            answer.append(0)
+            continue
+
+        if query[0] != '?' :
+            left_value = query.replace('?', 'a')
+            right_value = query.replace('?', 'z')
+            result = cnt_in_range(data[L], left_value, right_value)
+
+        else :
+            reversed_query = query[::-1]
+            left_value = reversed_query.replace('?', 'a')
+            right_value = reversed_query.replace('?', 'z')
+            result = cnt_in_range(reverse[L], left_value, right_value)
+
+        answer.append(result)
 
     return answer
