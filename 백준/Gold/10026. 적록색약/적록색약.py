@@ -1,82 +1,55 @@
 from collections import deque
 
-n = int(input())
-normal = [list(input().rstrip()) for _ in range(n)]
-blind = [[normal[i][j] if normal[i][j] != 'G' else 'R' for j in range(n)] for i in range(n)]
+di = [-1, 1, 0, 0]
+dj = [0, 0, -1, 1]
 
-n_visited = [[0] * n for _ in range(n)]
-b_visited = [[0] * n for _ in range(n)]
-n_cnt = b_cnt = 0
-
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-def bfs(x, y, arr, visited) :
-    color = arr[x][y]
+def bfs(si, sj, arr, v) :
+    N = len(arr)
     q = deque()
-    q.append((x, y))
+    q.append((si, sj))
 
     while q :
-        x, y = q.popleft()
+        ci, cj = q.popleft()
 
-        for i in range(4) :
-            nx, ny = x + dx[i], y + dy[i]
-            if 0 <= nx < n and 0 <= ny < n and arr[nx][ny] == color and visited[nx][ny] == 0 :
-                visited[nx][ny] = 1
-                q.append((nx, ny))
-    return visited
+        for d in range(4) :
+            ni, nj = ci + di[d], cj + dj[d]
+            if 0<=ni<N and 0<=nj<N and arr[ni][nj] == arr[ci][cj] and v[ni][nj] == 0 :
+                q.append((ni, nj))
+                v[ni][nj] = 1
 
-for i in range(n) :
-    for j in range(n) :
-        if n_visited[i][j] == 0 :
-            n_visited = bfs(i, j, normal, n_visited)
-            n_cnt += 1
-        if b_visited[i][j] == 0:
-            b_visited = bfs(i, j, blind, b_visited)
-            b_cnt += 1
+def main() :
+    """
+    :return: [적록색약이 아닌 사람이 봤을 때의 구역의 개수, 적록색약인 사람이 봤을 때의 구역의 개수]
+    """
+    N = int(input())
+    arr = [list(input().rstrip()) for _ in range(N)]
+    normal = [[0 for _ in range(N)] for _ in range(N)]
+    blind = [[0 for _ in range(N)] for _ in range(N)]
 
-print(n_cnt, b_cnt)
-'''
-sys.setrecursionlimit(10 ** 4)
-n = int(input())
-arr = [list(input().rstrip()) for _ in range(n)]
-v = [[0] * n for _ in range(n)]
+    for i in range(N) :
+        for j in range(N) :
+            if arr[i][j] == 'R' :
+                normal[i][j] = 1
+                blind[i][j] = 1
+            elif arr[i][j] == 'G' :
+                normal[i][j] = 2
+                blind[i][j] = 1
 
-n_cnt = b_cnt = 0
+    normal_v = [[0 for _ in range(N)] for _ in range(N)]
+    blind_v = [[0 for _ in range(N)] for _ in range(N)]
+    n_cnt = b_cnt = 0
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+    for i in range(N) :
+        for j in range(N) :
+            if normal_v[i][j] == 0 :
+                bfs(i, j, normal, normal_v)
+                n_cnt += 1
 
-def dfs(x, y) :
-    v[x][y] = 1
-    cur = arr[x][y]
+            if blind_v[i][j] == 0 :
+                bfs(i, j, blind, blind_v)
+                b_cnt += 1
 
-    for k in range(4) :
-        nx = x + dx[k]
-        ny = y + dy[k]
+    print(n_cnt, b_cnt)
 
-        if 0 <= nx < n and 0 <= ny < n and arr[nx][ny] == cur and v[nx][ny] == 0 :
-            dfs(nx, ny)
-
-for i in range(n) :
-    for j in range(n) :
-        if v[i][j] == 0 :
-            dfs(i, j)
-            n_cnt += 1
-
-# 적록색약
-for i in range(n) :
-    for j in range(n) :
-        if arr[i][j] == 'R' :
-            arr[i][j] = 'G'
-
-v = [[0] * n for _ in range(n)]
-
-for i in range(n) :
-    for j in range(n) :
-        if v[i][j] == 0 :
-            dfs(i, j)
-            b_cnt += 1
-
-print(n_cnt, b_cnt)
-'''
+if __name__ == "__main__" :
+    main()
