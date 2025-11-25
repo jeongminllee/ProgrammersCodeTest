@@ -1,37 +1,41 @@
 def main() :
-    S = list(input())
-    res = 0
+    S = input().strip()
+    quack = "quack"
 
-    if S[0] != 'q' or S[-1] != 'k' or len(S) % 5 :
-        print(-1)
-        return
+    step = {}
+    for i in range(len(quack)) :
+        step[quack[i]] = i
 
-    def find_uack(start) :
-        nonlocal res
-        quack = "quack"
-        j = 0
-        new_ori = True
+    # 울음소리의 상태를 추적하는 배열
+    cnts = [0] * 5
+    ducks = 0
+    max_duck = 0
 
-        for i in range(start, len(S)) :
-            if S[i] == quack[j] :
-                if S[i] == 'k' :
-                    if new_ori :
-                        res += 1
-                        new_ori = False
-                    j = 0
-                    S[i] = 0
-                    continue
-                j += 1
-                S[i] = 0
+    for ch in S :
+        if ch not in step :
+            print(-1)
+            return
 
-    for i in range(len(S) - 4) :
-        if S[i] == 'q' :
-            find_uack(i)
+        idx = step[ch]
 
-    if any(S) or res == 0 :
+        if idx == 0 :   # 'q' 가 나왔을 때
+            cnts[0] += 1
+            ducks += 1
+            max_duck = max(max_duck, ducks)
+        else :
+            if cnts[idx-1] > 0 :    # 이전 단계의 문자가 있는지 확인
+                cnts[idx-1] -= 1
+                cnts[idx] += 1
+                if idx == 4 :   # 'k' 일 때, 하나의 울음이 끝났으므로 ducks 감소
+                    ducks -= 1
+            else :
+                print(-1)
+                return
+
+    if ducks != 0 :
         print(-1)
     else :
-        print(res)
+        print(max_duck)
 
 if __name__ == "__main__" :
     main()
