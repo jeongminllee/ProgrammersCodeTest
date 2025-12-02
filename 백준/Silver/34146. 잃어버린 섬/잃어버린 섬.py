@@ -16,17 +16,12 @@ def main() :
                 return
 
     else :
-        cnt = 0
-        for val in dct.values() :
-            if val % 2 == 0 :
-                continue
-            cnt += 1
-        if cnt == len(dct.keys()) :
+        cnt = sum(1 for v in dct.values() if v % 2 == 1)
+
+        if not (cnt <= N and (cnt % 2 == N % 2)) :
             print("NO")
             return
-        if cnt % 2 != N % 2 :
-            print("NO")
-            return
+
     print("YES")
 if __name__ == "__main__" :
     main()
