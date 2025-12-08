@@ -1,10 +1,20 @@
-ans = 0
-arr = [int(input()) for _ in range(10)]
+def main() :
+    a = b = 0
+    while True :
+        try :
+            n = int(input())
+            a += n
+            b += n
+            if a > 100 :
+                a -= n
+                break
 
-for i in arr :
-    ans += i
-    if ans >= 100 :
-        if abs(ans - 100) > abs(ans - i - 100) :
-            ans -= i
-        break
-print(ans)
+        except :
+            break
+    if abs(a - 100) >= abs(b - 100) :
+        print(b)
+    else :
+        print(a)
+
+if __name__ == "__main__" :
+    main()
