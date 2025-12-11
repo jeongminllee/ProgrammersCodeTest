@@ -1,3 +1,4 @@
+'''
 import heapq
 
 n, k = map(int, input().split())
@@ -11,5 +12,16 @@ res = 0
 for _ in range(k) :
     maximal_score = heapq.heappop(heap_exercises)
     res += maximal_score[1]
+
+print(res)
+'''
+
+n, k = map(int, input().split())
+exercises = list(int(input()) for _ in range(n))
+exercises.sort(reverse=True)
+
+res = 0
+for i in range(k) :
+    res += exercises[i]
 
 print(res)
