@@ -1,7 +1,7 @@
 def dfs(dist_limit, split_limit, w, d, s, leaves) :
     best = leaves
 
-    if d == dist_limit :
+    if d >= dist_limit :
         return best
     
     for k in (2, 3) :
