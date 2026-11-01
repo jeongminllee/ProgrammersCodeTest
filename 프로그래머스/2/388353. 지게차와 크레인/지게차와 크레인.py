@@ -46,5 +46,4 @@ def solution(storage, requests):
         for j in range(1, len(board[0]) - 1) :
             if board[i][j] != ' ':
                 answer += 1
-    print(board)
     return answer
