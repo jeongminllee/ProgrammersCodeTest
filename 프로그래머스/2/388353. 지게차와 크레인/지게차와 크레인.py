@@ -1,9 +1,3 @@
-'''
-음 나중에 한꺼번에 처리하는 걸로 할까?
-선 기록 후 처리
-
-접근은 bfs로 해서 flood fill 할까?
-'''
 from collections import deque
 
 def bfs(board, cmd, v) :
